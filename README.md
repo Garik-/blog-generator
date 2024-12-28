@@ -9,3 +9,8 @@ $ npm install
 $ npm start
 $ wget -r http://localhost:3000/
 ```
+
+## TODO
+- [ ] support images  
+- [ ] compress css, html, js  
+- [ ] responsive images  
