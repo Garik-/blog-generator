@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  div(class="page")
+    div(class="main-layout")
+      main
+      aside
+        section(class="aside-first")
+          h2(class="aside-title") Recommended topics
+          div(class="topics-list")
+            each tag in tags
+              div(class="topic-item")
+                a(class="topic-item-link" rel="noopener follow" href="/tag/" + tag)
+                  div(class="topic-item-text") #{tag}
+           
+    
+
+
+block meta
+  title #{meta.title}
+  meta(name='description' content=meta.description)
+  meta(property="og:title" content=meta.title)
+  meta(property="og:description" content=meta.description)
+  meta(property="og:type" content="website")
