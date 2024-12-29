@@ -1,6 +1,15 @@
-const path = require('node:path');
-const fs = require('node:fs/promises');
-const yaml = require('js-yaml');
+// const path = require('node:path');
+// const fs = require('node:fs/promises');
+// const yaml = require('js-yaml');
+
+import { fileURLToPath } from 'url';
+import path from 'path';
+import { promises as fs } from 'fs';
+import yaml from 'js-yaml';
+
+// Получение __dirname в ES6 модулях
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const DATA_PATH = path.join(__dirname, 'data');
 const DESCRIPTION_MAX_LENGTH = 150;
@@ -155,7 +164,7 @@ async function getData() {
             uri,
             tags,
             description,
-            content,
+            content: content,
             image,
         }
 
@@ -170,6 +179,8 @@ async function getData() {
         }
     }
 
+    console.log(data)
+
     return data
 }
 
@@ -179,4 +190,4 @@ let data;
     data = await getData();
 })();
 
-module.exports = () => data;
+export default () => data;

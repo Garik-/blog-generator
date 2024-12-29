@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    main(class="article-layout")
+        div(class="container")
+            article
+                h1(class="post-title") #{article.title}
+                div(class="post-content")
+                    #{article.content}
+
+block meta
+    title #{meta.title}
+    meta(name='description' content=meta.description)
+    meta(property="og:title" content=meta.title)
+    meta(property="og:description" content=meta.description)
+    meta(property="og:type" content="website")

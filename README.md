@@ -15,7 +15,9 @@ $ wget -r http://localhost:3000/
 - [ ] tags page
 - [x] support images
 - [x] sass support, compress css  
-- [x] responsive images
+- [ ] responsive images
+- [ ] image zoom
 - [x] compress html
 - [ ] availability
 - [ ] open graph
+- [ ] site web manifest

@@ -1,7 +1,12 @@
-var express = require('express');
-var router = express.Router();
+import express from 'express';
+import createError from 'http-errors';
+import { format, differenceInDays, formatDistanceToNow } from 'date-fns';
+import getData from '../data.js';
 
-const { format, differenceInDays, formatDistanceToNow } = require('date-fns');
+const router = express.Router();
+
+
+
 
 function formatDate(dateMs) {
   const now = new Date();
@@ -16,14 +21,13 @@ function formatDate(dateMs) {
 }
 
 
-const getData = require('../data');
+
 
 
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
   const data = getData();
-  console.log(data);
 
   const meta = Object.assign({}, data.siteMetadata, {
     title: data.siteMetadata.title,
@@ -50,13 +54,54 @@ router.get('/', function (req, res, next) {
   res.render('index', { meta, items, tags });
 });
 
-router.get('/:article', function (req, res, next) {
-  res.send('test')
-});
-
-
 router.get('/tag/:tag', function (req, res, next) {
   res.render('tag', {});
 });
 
-module.exports = router;
+router.get('/site.webmanifest', function (req, res, next) {
+  const data = getData();
+  res.json({
+    "name": data.siteMetadata.title,
+    "short_name": data.siteMetadata.title,
+    "icons": [
+      {
+        "src": "/images/android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/images/android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone"
+  });
+})
+
+router.get('/:article', function (req, res, next) {
+  const data = getData();
+
+  if (!data.URIMap[req.params.article]) {
+    res.status(404).send('Article not found');
+
+    return
+  }
+
+  const id =  data.URIMap[req.params.article];
+  const article = data.pages[id];
+
+  article.date = formatDate(article.birthtimeMs);
+
+  const meta = Object.assign({}, data.siteMetadata, {
+    title: data.siteMetadata.title,
+    description: data.siteMetadata.description,
+  });
+
+
+  res.render('article', { meta, article });
+});
+
+export default router;

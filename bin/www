@@ -1,12 +1,8 @@
-#!/usr/bin/env node
+import app from "../app.js";
+import debugModule from 'debug';
+import http from 'http';
 
-/**
- * Module dependencies.
- */
-
-var app = require('../app');
-var debug = require('debug')('myapp:server');
-var http = require('http');
+const debug = debugModule('myapp:server');
 
 /**
  * Get port from environment and store in Express.

@@ -1,8 +1,13 @@
-const express = require('express');
+import express from 'express';
+import path from 'path';
+import { promises as fs } from 'fs';
+import sharp from "sharp";
+import { fileURLToPath } from 'url';
+
 const router = express.Router();
-const path = require('path');
-const sharp = require("sharp");
-const fs = require("fs").promises;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const PUBLIC_IMAGES_PATH = path.join(__dirname, '../public/images');
 const IMAGES_PATH = path.join(__dirname, '../images');
@@ -58,4 +63,4 @@ const imagesHandler = resizeHandler(IMAGES_PATH);
 router.get('/resize:params/public/:image', publicImagesHandler);
 router.get('/resize:params/:image', imagesHandler);
 
-module.exports = router;
+export default router;
