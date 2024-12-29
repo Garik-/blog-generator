@@ -1,11 +1,15 @@
-// const path = require('node:path');
-// const fs = require('node:fs/promises');
-// const yaml = require('js-yaml');
-
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { promises as fs } from 'fs';
 import yaml from 'js-yaml';
+
+import rehypeSanitize from 'rehype-sanitize'
+import rehypeStringify from 'rehype-stringify'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import {unified} from 'unified'
+
+
 
 // Получение __dirname в ES6 модулях
 const __filename = fileURLToPath(import.meta.url);
@@ -131,6 +135,11 @@ async function parseFileContent(filePath) {
      }
 }
 
+const remark = unified()
+  .use(remarkParse)
+  .use(remarkRehype)
+  .use(rehypeSanitize)
+  .use(rehypeStringify)
 
 async function getData() {
     const data = {
@@ -155,6 +164,8 @@ async function getData() {
 
         const { tags, content, description, image } = await parseFileContent(filePath);
 
+        const html = await remark.process(content)
+
         data.pages[stats.ino] = {
             atimeMs: stats.atimeMs, // время последнего доступа к файлу в миллисекундах
             mtimeMs: stats.mtimeMs, // время последнего изменения содержимого файла в миллисекундах
@@ -164,7 +175,7 @@ async function getData() {
             uri,
             tags,
             description,
-            content: content,
+            content: String(html),
             image,
         }
 
