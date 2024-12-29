@@ -8,7 +8,9 @@ import rehypeStringify from 'rehype-stringify'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import remarkGfm from 'remark-gfm'
-import {unified} from 'unified'
+import remarkPrism from 'remark-prism';
+import { unified } from 'unified'
+import rehypeHighlight from 'rehype-highlight'
 
 
 
@@ -128,20 +130,23 @@ async function parseFileContent(filePath) {
     const description = extractDescription(content)
     const image = extractFileFromTemplate(content)
 
-    return { 
+    return {
         ...parsedAttributes,
         content,
         description: truncateDescription(description),
         image
-     }
+    }
 }
 
 const remark = unified()
-  .use(remarkParse)
+    .use(remarkParse)
     .use(remarkGfm)
-  .use(remarkRehype)
-  .use(rehypeSanitize)
-  .use(rehypeStringify)
+    // .use(remarkPrism)
+    .use(remarkRehype)
+    .use(rehypeSanitize)
+    .use(rehypeHighlight)
+
+    .use(rehypeStringify)
 
 async function getData() {
     const data = {

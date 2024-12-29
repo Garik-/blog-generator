@@ -21,3 +21,4 @@ $ wget -r http://localhost:3000/
 - [ ] availability
 - [ ] open graph
 - [ ] site web manifest
+- [x] code highlight
