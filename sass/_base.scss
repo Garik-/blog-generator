@@ -1,0 +1,31 @@
+
+*, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  h1, h2, h3, h4, h5, h6, dl, dd, ol, ul, menu, figure, blockquote, p, pre, form {
+    margin: 0;
+  }
+  
+  main {
+    display: block;
+  }
+  
+  img, svg {
+    vertical-align: middle;
+  }
+  
+  
+  html {
+    box-sizing: border-box;
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  a, button, input {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  a {
+    color: inherit;
+    text-decoration: none;
+  }

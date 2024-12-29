@@ -4,14 +4,32 @@ block content
   div(class="page")
     div(class="main-layout")
       main
+        div(class="aricle-list main-first")
+          - var n = 0;
+            while n < 100
+              - n++;
+              div(class="article-item")
+                article
+                  a(class="article-content" href="/article" rel="noopener follow")
+                    div(class="article-content-info")
+                      h2(class="article-content-title") Database Performance Benchmark: PostgreSQL 17 vs. MySQL 9 vs. MongoDB 8
+                      h3(class="article-content-desc") A friend of mine recently joined a FAANG company as an engineering manager, and found themselves in the position of recruiting for…
+                      div(class="article-content-date") 
+                        div Dec 12, 2021
+                    div(class="article-content-image")
+                      <img alt="/v2/resize:fill:160:106/" class="article-content-image-mobile" src="/images/avatar.jpg" width="80" height="53" loading="lazy">
+                      <img alt="/v2/resize:fill:320:214/" class="article-content-image-desktop" src="/images/avatar.jpg" width="160" height="107" loading="lazy">
+                  div(class="article-separator")
+
       aside
-        section(class="aside-first")
-          h2(class="aside-title") Recommended topics
-          div(class="topics-list")
-            each tag in tags
-              div(class="topic-item")
-                a(class="topic-item-link" rel="noopener follow" href="/tag/" + tag)
-                  div(class="topic-item-text") #{tag}
+        div(class="sticky")
+          section(class="aside-first")
+            h2(class="aside-title") Recommended topics
+            div(class="topics-list")
+              each tag in tags
+                div(class="topic-item")
+                  a(class="topic-item-link" rel="noopener follow" href="/tag/" + tag)
+                    div(class="topic-item-text") #{tag}
            
     
 
