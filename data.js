@@ -78,6 +78,26 @@ function truncateDescription(description, maxLength = DESCRIPTION_MAX_LENGTH) {
     return truncated + '...';
 }
 
+function extractFileFromTemplate(str) {
+    const regex = /!\[\[([^\]]+)\]\]/m;
+    const match = str.match(regex);
+    if (match) {
+        return match[1];
+    }
+    return null;
+}
+
+function extractDescription(str) {
+    const lines = str.split('\n');
+    for (const line of lines) {
+        const trimmedLine = line.trim();
+        if (trimmedLine && !trimmedLine.startsWith('![[')) {
+            return trimmedLine;
+        }
+    }
+    return str;
+}
+
 async function parseFileContent(filePath) {
     const data = await fs.readFile(filePath, { encoding: 'utf8' });
     const attributesRegex = /---\n([\s\S]*?)\n---/m;
@@ -91,10 +111,15 @@ async function parseFileContent(filePath) {
         parsedAttributes = yaml.load(attributes[1]);
     }
 
-    const firstLine = content.indexOf('\n');
-    const description = firstLine !== -1 ? content.substring(0, firstLine) : content;
+    const description = extractDescription(content)
+    const image = extractFileFromTemplate(content)
 
-    return { content, ...parsedAttributes, description: truncateDescription(description) }
+    return { 
+        ...parsedAttributes,
+        content,
+        description: truncateDescription(description),
+        image
+     }
 }
 
 
@@ -102,6 +127,7 @@ async function getData() {
     const data = {
         pages: {},
         tags: {},
+        URIMap: {},
         siteMetadata,
     }
 
@@ -111,18 +137,26 @@ async function getData() {
         const stats = await fs.stat(filePath)
         const title = removeFileExtension(file)
 
-        const { tags, content, description } = await parseFileContent(filePath);
+        const uri = translit(title);
+        if (data.URIMap[uri]) {
+            throw new Error(`Duplicate URI: ${uri}`)
+        }
 
+        data.URIMap[uri] = stats.ino;
+
+        const { tags, content, description, image } = await parseFileContent(filePath);
 
         data.pages[stats.ino] = {
-            atimeMs: stats.atimeMs,
-            mtimeMs: stats.mtimeMs,
-            ctimeMs: stats.ctimeMs,
+            atimeMs: stats.atimeMs, // время последнего доступа к файлу в миллисекундах
+            mtimeMs: stats.mtimeMs, // время последнего изменения содержимого файла в миллисекундах
+            ctimeMs: stats.ctimeMs, // время последнего изменения метаданных файла
+            birthtimeMs: stats.birthtimeMs, // время создания файла
             title,
-            uri: translit(title),
+            uri,
             tags,
             description,
             content,
+            image,
         }
 
         if (tags) {

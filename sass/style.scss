@@ -1,6 +1,8 @@
 @use "base";
 
 $font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+// $font-family: sohne, "PT Sans", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
 
 @media all and (min-width: 1080px) {
 
@@ -70,12 +72,36 @@ $font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
     line-height: 30px;
   }
 
-  .article-content-image {
-    margin-left: 56px;
+  .article-content {
+
+    &-image {
+      margin-left: 56px;
+
+      &-mobile {
+        display: none;
+      }
+    }
+  }
+}
+
+@media all and (min-width: 552px) and (max-width: 903.98px) {
+  .main-layout>main {
+    min-width: 0px;
   }
 
-  .article-content-image-mobile {
+  .main-layout>aside {
     display: none;
+  }
+
+  .article-content {
+
+    &-image {
+      margin-left: 56px;
+
+      &-mobile {
+        display: none;
+      }
+    }
   }
 }
 
@@ -243,6 +269,7 @@ $font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-overflow: ellipsis;
     overflow: hidden;
     -webkit-box-orient: vertical;
+    display: -webkit-box;
     max-height: 40px;
     -webkit-line-clamp: 2;
   }
