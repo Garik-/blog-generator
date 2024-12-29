@@ -13,4 +13,5 @@ $ wget -r http://localhost:3000/
 ## TODO
 - [ ] support images
 - [x] sass support, compress css  
-- [ ] responsive images  
+- [x] responsive images
+- [x] compress html

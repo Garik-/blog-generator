@@ -2,25 +2,25 @@ const path = require('node:path');
 const fs = require('node:fs/promises');
 const yaml = require('js-yaml');
 
-const DATA_PATH = path.join(path.dirname("./"), 'data');
+const DATA_PATH = path.join(__dirname, 'data');
 const DESCRIPTION_MAX_LENGTH = 150;
 
 const siteMetadata = {
     title: 'Igor Riakhovskii',
     author: {
-      name: `Igor Riakhovskii`,
-      summary: `who lives and works in San Francisco building useful things.`,
+        name: `Igor Riakhovskii`,
+        summary: `who lives and works in San Francisco building useful things.`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
     siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
     social: {
-      twitter: `kylemathews`,
+        twitter: `kylemathews`,
     },
-  }
+}
 
-  /*
-  https://yandex.ru/support/webmaster/open-graph/
-  og type =  article
+/*
+https://yandex.ru/support/webmaster/open-graph/
+og type =  article
 article:published_time (datetime) — дата публикации статьи.
 article:modified_time ( datetime) — дата последнего изменения статьи.
 article:expiration_time (datetime) — дата, после которой статья считается устаревшей.
@@ -28,7 +28,7 @@ article:author (profile, массив) — автор статьи.
 article:section (string)— тема (раздел), к которой относится статья (например, Технологии).
 article:tag (string, массив) — теги (слова, фразы), связанные с этой статьей.
 
-  */
+*/
 
 
 function translit(word) {
@@ -125,13 +125,15 @@ async function getData() {
             content,
         }
 
-        tags.forEach(tag => {
-            if (!data.tags[tag]) {
-                data.tags[tag] = []
-            }
+        if (tags) {
+            tags.forEach(tag => {
+                if (!data.tags[tag]) {
+                    data.tags[tag] = []
+                }
 
-            data.tags[tag].push(stats.ino)
-        })
+                data.tags[tag].push(stats.ino)
+            })
+        }
     }
 
     return data
