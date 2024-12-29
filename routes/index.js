@@ -8,11 +8,13 @@ const router = express.Router();
 
 
 
-function formatDate(dateMs) {
+function formatDate(dateMs) { 
   const now = new Date();
   const date = new Date(dateMs);
 
-  const daysDifference = differenceInDays(now, date);
+  // TODO: эта функция работает не корретно из-за того что ToNow это время генерации сайта
+  // здесь нужно вынести полный шаблон - а интерактив добавлять реактивно
+  const daysDifference = differenceInDays(now, date); 
   if (daysDifference < 7) {
     return formatDistanceToNow(date, { addSuffix: true });
   }
