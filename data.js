@@ -7,6 +7,7 @@ import rehypeSanitize from 'rehype-sanitize'
 import rehypeStringify from 'rehype-stringify'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
+import remarkGfm from 'remark-gfm'
 import {unified} from 'unified'
 
 
@@ -137,6 +138,7 @@ async function parseFileContent(filePath) {
 
 const remark = unified()
   .use(remarkParse)
+    .use(remarkGfm)
   .use(remarkRehype)
   .use(rehypeSanitize)
   .use(rehypeStringify)

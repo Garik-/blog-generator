@@ -1,6 +1,8 @@
 @use "base";
 
 $font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-article: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
+$font-family-code: source-code-pro, Menlo, Monaco, "Courier New", Courier, monospace;
 // $font-family: sohne, "PT Sans", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 
@@ -175,9 +177,188 @@ $font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.23;
 }
 
+.post-content {
+
+  blockquote {
+    box-shadow: rgb(36, 36, 36) 3px 0px 0px 0px inset;
+    padding-left: 23px;
+    margin-left: -20px;
+  }
+
+  li {
+    font-weight: 400;
+    color: #242424;
+    font-style: normal;
+    line-height: 1.58;
+    letter-spacing: -0.004em;
+    font-family: $font-family-article;
+    margin-bottom: -0.46em;
+    margin-top: 1.14em;
+  }
+
+  ol {
+    li {
+      list-style-type: decimal;
+      margin-left: 30px;
+      padding-left: 0px;
+
+    }
+  }
+
+  ul {
+    li {
+      list-style-type: disc;
+      margin-left: 30px;
+      padding-left: 0px;
+    }
+  }
 
 
-@media all and (min-width: 1080px) {
+  p {
+    font-weight: 400;
+    color: #242424;
+    word-break: break-word;
+    font-style: normal;
+    line-height: 1.58;
+    letter-spacing: -0.004em;
+    font-family: $font-family-article;
+    margin-bottom: -0.46em;
+
+    >code {
+      font-weight: 400;
+      background-color: #F2F2F2;
+      font-family: $font-family-code;
+      padding: 2px 4px;
+      font-size: 75%;
+    }
+  }
+
+  >pre {
+    background: #F9F9F9;
+    color: #242424;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: $font-family-code;
+    padding: 32px;
+    border: 1px solid rgb(229, 229, 229);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: $font-family;
+    color: #242424;
+    font-style: normal;
+    line-height: 1.12;
+    letter-spacing: -0.022em;
+    font-weight: 600;
+    margin-bottom: -0.28em;
+  }
+
+  h2 {
+    font-family: $font-family;
+    color: #242424;
+    font-style: normal;
+    letter-spacing: -0.022em;
+    font-weight: 600;
+    line-height: 1.18;
+    margin-bottom: -0.31em;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  strong {
+    font-weight: 700;
+    font-family: $font-family-article;
+  }
+
+
+}
+
+@media all and (min-width: 1080px) { 
+
+  .post-content {
+
+
+
+    p,
+    li {
+      font-size: 20px;
+      margin-top: 2.14em;
+      line-height: 32px;
+      letter-spacing: -0.003em;
+    }
+
+    li:not(:first-child) {
+      margin-top: 1.14em;
+    }
+
+    h1 {
+      font-size: 24px;
+      line-height: 30px;
+      letter-spacing: -0.016em;
+      margin-top: 1.95em;
+    }
+
+    h2 {
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: 0;
+      margin-top: 1.72em;
+    }
+
+    h3 {
+      font-size: 18px;
+      line-height: 22px;
+      letter-spacing: 0;
+      margin-top: 1.6em;
+    }
+    
+    h4 {
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: 0;
+      margin-top: 1.5em;
+    }
+    
+    h5 {
+      font-size: 14px;
+      line-height: 18px;
+      letter-spacing: 0;
+      margin-top: 1.4em;
+    }
+    
+    h6 {
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0;
+      margin-top: 1.3em;
+    }
+    
+
+    >pre {
+      margin-top: 56px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      &+p {
+        margin-top: 0.94em;
+      }
+    }
+
+    
+  }
 
   .main-layout {
     >main {
@@ -234,7 +415,82 @@ $font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 }
 
-@media all and (min-width: 904px) and (max-width: 1079.98px) {
+@media all and (min-width: 904px) and (max-width: 1079.98px) { // iPad Pro
+
+  .post-content {
+
+    p,
+    li {
+      font-size: 20px;
+      margin-top: 2.14em;
+      line-height: 32px;
+      letter-spacing: -0.003em;
+    }
+
+    li:not(:first-child) {
+      margin-top: 1.14em;
+    }
+
+    h1 {
+      font-size: 24px;
+      line-height: 30px;
+      letter-spacing: -0.016em;
+      margin-top: 1.95em;
+    }
+
+    h2 {
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: 0;
+      margin-top: 1.72em;
+    }
+
+    h3 {
+      font-size: 18px;
+      line-height: 22px;
+      letter-spacing: 0;
+      margin-top: 1.6em;
+    }
+    
+    h4 {
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: 0;
+      margin-top: 1.5em;
+    }
+    
+    h5 {
+      font-size: 14px;
+      line-height: 18px;
+      letter-spacing: 0;
+      margin-top: 1.4em;
+    }
+    
+    h6 {
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0;
+      margin-top: 1.3em;
+    }
+    
+
+    >pre {
+      margin-top: 56px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      &+p {
+        margin-top: 0.94em;
+      }
+    }
+  }
+
+
   .main-layout>main {
     min-width: 0px;
   }
@@ -279,7 +535,81 @@ $font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 }
 
-@media all and (min-width: 552px) and (max-width: 903.98px) {
+@media all and (min-width: 728px) and (max-width: 903.98px) { // iPad mini
+
+  .post-content {
+
+    p,
+    li {
+      font-size: 20px;
+      margin-top: 2.14em;
+      line-height: 32px;
+      letter-spacing: -0.003em;
+    }
+
+    li:not(:first-child) {
+      margin-top: 1.14em;
+    }
+
+    h1 {
+      font-size: 24px;
+      line-height: 30px;
+      letter-spacing: -0.016em;
+      margin-top: 1.95em;
+    }
+
+    h2 {
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: 0;
+      margin-top: 1.72em;
+    }
+
+    h3 {
+      font-size: 18px;
+      line-height: 22px;
+      letter-spacing: 0;
+      margin-top: 1.6em;
+    }
+    
+    h4 {
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: 0;
+      margin-top: 1.5em;
+    }
+    
+    h5 {
+      font-size: 14px;
+      line-height: 18px;
+      letter-spacing: 0;
+      margin-top: 1.4em;
+    }
+    
+    h6 {
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0;
+      margin-top: 1.3em;
+    }
+    
+
+    >pre {
+      margin-top: 56px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      &+p {
+        margin-top: 0.94em;
+      }
+    }
+  }
+
   .main-layout>main {
     min-width: 0px;
   }
@@ -300,7 +630,81 @@ $font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 }
 
-@media all and (max-width: 551.98px) {
+@media all and (max-width: 551.98px) { // Pixel 7
+
+  .post-content {
+
+    p,
+    li {
+      font-size: 18px;
+      margin-top: 1.56em;
+      line-height: 28px;
+      letter-spacing: -0.003em;
+    }
+
+    li:not(:first-child) {
+      margin-top: 1.34em;
+    }
+
+    h1 {
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: 0px;
+      margin-top: 1.2em;
+    }
+
+    h2 {
+      letter-spacing: 0;
+      font-size: 16px;
+      margin-top: 1.23em;
+      line-height: 20px;
+    }
+
+    h3 {
+      font-size: 14px;
+      line-height: 18px;
+      letter-spacing: 0;
+      margin-top: 1.25em;
+    }
+    
+    h4 {
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0;
+      margin-top: 1.27em;
+    }
+    
+    h5 {
+      font-size: 10px;
+      line-height: 14px;
+      letter-spacing: 0;
+      margin-top: 1.3em;
+    }
+    
+    h6 {
+      font-size: 9px;
+      line-height: 12px;
+      letter-spacing: 0;
+      margin-top: 1.33em;
+    }
+    
+
+    >pre {
+      margin-top: 40px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      &+p {
+        margin-top: 0.67em;
+      }
+    }
+  }
+
   .main-layout>main {
     min-width: 0px;
   }
@@ -355,4 +759,3 @@ $font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-color: rgba(255, 255, 255, 1);
   }
 }
-
