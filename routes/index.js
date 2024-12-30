@@ -77,7 +77,8 @@ function createSrcset(
 ) {
   return sizes
     .map((size) => {
-      return `/v1/resize:fit:${size}/${format ? `format:${format}/` : ''}${file} ${size}w`;
+      const formattedPath = format ? `format:${format}/` : '';
+      return `/v1/resize:fit:${size}/${formattedPath}${file} ${size}w`;
     })
     .join(', ');
 }
