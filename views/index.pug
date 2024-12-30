@@ -1,5 +1,7 @@
 extends layout
 
+include ./includes/tags.pug
+
 block content
   div(class="page")
     div(class="main-layout")
@@ -25,11 +27,7 @@ block content
         div(class="sticky")
           section(class="aside-first")
             h2(class="aside-title") Recommended topics
-            div(class="topics-list")
-              each tag in tags
-                div(class="topic-item")
-                  a(class="topic-item-link" rel="noopener follow" href="/tag/" + tag)
-                    div(class="topic-item-text") #{tag}
+            +topics(tags)
            
     
 
@@ -40,3 +38,6 @@ block meta
   meta(property="og:title" content=meta.title)
   meta(property="og:description" content=meta.description)
   meta(property="og:type" content="website")
+  meta(property="profile:first_name" content=meta.author.firstName)
+  meta(property="profile:last_name" content=meta.author.lastName)
+  meta(property="profile:username" content=meta.author.username)

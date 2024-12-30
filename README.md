@@ -11,7 +11,7 @@ $ wget -r http://localhost:3000/
 ```
 
 ## TODO
-- [ ] article page
+- [x] article page
 - [ ] tags page
 - [x] support images
 - [x] sass support, compress css  
@@ -22,3 +22,4 @@ $ wget -r http://localhost:3000/
 - [ ] open graph
 - [ ] site web manifest
 - [x] code highlight
+- [x] reading time algorithm

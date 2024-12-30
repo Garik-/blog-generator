@@ -11,6 +11,7 @@ import remarkGfm from 'remark-gfm'
 import remarkPrism from 'remark-prism';
 import { unified } from 'unified'
 import rehypeHighlight from 'rehype-highlight'
+import readingTime from 'reading-time';
 
 
 
@@ -25,27 +26,15 @@ const siteMetadata = {
     title: 'Igor Riakhovskii',
     author: {
         name: `Igor Riakhovskii`,
-        summary: `who lives and works in San Francisco building useful things.`,
+        summary: `In commercial development since 2005. At the moment, I am engaged in product development of cloud systems in the role of Technical Lead`,
+        firstName: 'Igor', lastName: 'Riakhovskii', username:'garikdjan',
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
+    description: `My thoughts notes and publications are collected here`,
     siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
     social: {
         twitter: `kylemathews`,
     },
 }
-
-/*
-https://yandex.ru/support/webmaster/open-graph/
-og type =  article
-article:published_time (datetime) — дата публикации статьи.
-article:modified_time ( datetime) — дата последнего изменения статьи.
-article:expiration_time (datetime) — дата, после которой статья считается устаревшей.
-article:author (profile, массив) — автор статьи.
-article:section (string)— тема (раздел), к которой относится статья (например, Технологии).
-article:tag (string, массив) — теги (слова, фразы), связанные с этой статьей.
-
-*/
-
 
 function translit(word) {
     var converter = {
@@ -170,7 +159,7 @@ async function getData() {
         data.URIMap[uri] = stats.ino;
 
         const { tags, content, description, image } = await parseFileContent(filePath);
-
+        const readingStats = readingTime(content)
         const html = await remark.process(content)
 
         data.pages[stats.ino] = {
@@ -184,6 +173,7 @@ async function getData() {
             description,
             content: String(html),
             image,
+            readingStats,
         }
 
         if (tags) {
@@ -196,8 +186,6 @@ async function getData() {
             })
         }
     }
-
-    console.log(data)
 
     return data
 }

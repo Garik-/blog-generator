@@ -1,0 +1,7 @@
+mixin topics(tags)
+    if tags
+        div(class="topics-list")
+                each tag in tags
+                    div(class="topic-item")
+                    a(class="topic-item-link" rel="noopener follow" href="/tag/" + tag)
+                        div(class="topic-item-text") #{tag}

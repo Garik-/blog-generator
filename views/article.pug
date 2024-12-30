@@ -1,15 +1,62 @@
 extends layout
 
+include ./includes/tags.pug
+
 block content
     main(class="article-layout")
         div(class="container")
             article
                 h1(class="post-title") #{article.title}
+
+                section(class="post-info")
+                    a(rel="noopener follow" href="/")
+                        img(alt="DataFairy" class="author-photo" src="/v1/resize:fill:88:88/public/avatar.jpg" width="44" height="44" loading="lazy")
+                    div(class="post-info-author")
+                        a(class="author-name" rel="noopener follow" href="/") #{meta.author.name}
+                        div(class="post-info-date")
+                            span #{article.readingStats.text}
+                            span(class="separator") ·
+                            span #{article.date}
+               
+
                 div(class="post-content")!= article.content
+            if article.tags
+                div(class="post-tags")
+                    +topics(article.tags)
+    footer(class="article-footer")
+        div(class="container")
+            div(class="content")
+                div(class="space")
+                section(class="author-section")
+                    a(class="author-section-left" rel="noopener follow" href="/")
+                        img(alt="DataFairy" class="avatar mobile-hide" src="/v1/resize:fill:96:96/public/avatar.jpg" width="48" height="48" loading="lazy")
+                        img(alt="DataFairy" class="avatar-big mobile-only" src="/v1/resize:fill:128:128/public/avatar.jpg" width="64" height="64" loading="lazy")
+                    div
+                        a(class="author-name" rel="noopener follow" href="/") Written by #{meta.author.name}
+                        div(class="author-summary") #{meta.author.summary}
 
 block meta
-    title #{meta.title}
-    meta(name='description' content=meta.description)
-    meta(property="og:title" content=meta.title)
-    meta(property="og:description" content=meta.description)
-    meta(property="og:type" content="website")
+    title #{ article.title} | by #{meta.title}
+    meta(name='description' content=article.description)
+    meta(property="og:title" content=article.title)
+    meta(property="og:description" content=article.description)
+    meta(property="og:type" content="article")
+    meta(property="article:published_time" content=meta.published_time)
+    meta(property="article:modified_time" content=meta.modified_time)
+    meta(property="profile:first_name" content=meta.author.firstName)
+    meta(property="profile:last_name" content=meta.author.lastName)
+    meta(property="profile:username" content=meta.author.username)
+    if article.tags 
+        each tag in article.tags 
+            meta(property="article:tag" content=tag)
+
+
+
+//- https://yandex.ru/support/webmaster/open-graph/
+//- og type =  article
+//- article:published_time (datetime) — дата публикации статьи.
+//- article:modified_time ( datetime) — дата последнего изменения статьи.
+//- article:expiration_time (datetime) — дата, после которой статья считается устаревшей.
+//- article:author (profile, массив) — автор статьи.
+//- article:section (string)— тема (раздел), к которой относится статья (например, Технологии).
+//- article:tag (string, массив) — теги (слова, фразы), связанные с этой статьей.

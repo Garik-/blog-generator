@@ -1,31 +1,15 @@
 import express from 'express';
 import createError from 'http-errors';
-import { format, differenceInDays, formatDistanceToNow } from 'date-fns';
+import { format, differenceInDays, formatDistanceToNow, formatISO } from 'date-fns';
 import getData from '../data.js';
 
 const router = express.Router();
 
 
-
-
 function formatDate(dateMs) { 
-  const now = new Date();
   const date = new Date(dateMs);
-
-  // TODO: эта функция работает не корретно из-за того что ToNow это время генерации сайта
-  // здесь нужно вынести полный шаблон - а интерактив добавлять реактивно
-  const daysDifference = differenceInDays(now, date); 
-  if (daysDifference < 7) {
-    return formatDistanceToNow(date, { addSuffix: true });
-  }
-
   return format(date, date.getFullYear() === new Date().getFullYear() ? 'MMM d' : 'MMM d, yyyy');
 }
-
-
-
-
-
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -100,6 +84,8 @@ router.get('/:article', function (req, res, next) {
   const meta = Object.assign({}, data.siteMetadata, {
     title: data.siteMetadata.title,
     description: data.siteMetadata.description,
+    published_time: formatISO(new Date(article.birthtimeMs)),
+    modified_time: formatISO(new Date(article.mtimeMs)),    
   });
 
 
