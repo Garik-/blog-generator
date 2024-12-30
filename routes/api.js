@@ -20,29 +20,86 @@ const mimeType = {
     gif: 'image/gif',
 }
 
+export async function getImageDimensions(file, maxWidth = 0) {
+    try {
+        const image = sharp(path.join(IMAGES_PATH, file));
+        const metadata = await image.metadata();
+
+        const dimensions = {
+            width: metadata.width,
+            height: metadata.height
+        };
+
+        if (maxWidth === 0 || dimensions.width < maxWidth) {
+            return dimensions;
+        }
+
+        const aspectRatio = dimensions.height / dimensions.width;
+        dimensions.width = maxWidth;
+        dimensions.height = Math.round(maxWidth * aspectRatio);
+
+        return dimensions;
+
+    } catch (error) {
+        console.error('Error getting image dimensions:', error);
+        throw error;
+    }
+}
+
 function resizeHandler(imagesPath) {
     return async (req, res) => {
         const { params, image } = req.params;
         const [type, width, height] = params.split(':').slice(1);
+
+        switch (type) {
+            case 'fill':
+            case 'fit':
+                break;
+
+            default:
+                return res.status(400).send('Invalid resize type');
+        }
+
+        let format = req.params.format ? req.params.format.substring(1) : null
         const parsedParams = {
             type,
-            width: parseInt(width, 10),
-            height: parseInt(height, 10),
-            image
+            width: parseInt(width, 10) || null,
+            height: parseInt(height, 10) || null,
+            image,
+            format
         };
+
 
         const inputPath = path.join(imagesPath, parsedParams.image);
 
         try {
             await fs.access(inputPath);
 
-            const image = await sharp(inputPath)
-                .resize(parsedParams.width, parsedParams.height, {
-                    fit: sharp.fit.cover,
-                    position: sharp.strategy.entropy
-                })
+            let image = sharp(inputPath);
 
-            const { format } = await image.metadata();
+            switch (type) {
+                case 'fill':
+                    image = image.resize(parsedParams.width, parsedParams.height, {
+                        fit: sharp.fit.cover,
+                        position: sharp.strategy.entropy
+                    })
+                    break;
+                case 'fit':
+                    image = image.resize(parsedParams.width, parsedParams.height, {
+                        fit: sharp.fit.inside,
+                        withoutEnlargement: true
+                    });
+                    break;
+            }
+
+
+            if (!format) {
+                const metadata = await image.metadata();
+                format = metadata.format
+            } else {
+                image = image.toFormat(format)
+            }
+
             const buffer = await image.toBuffer();
 
             res.type(mimeType[format]);
@@ -62,5 +119,6 @@ const imagesHandler = resizeHandler(IMAGES_PATH);
 
 router.get('/resize:params/public/:image', publicImagesHandler);
 router.get('/resize:params/:image', imagesHandler);
+router.get('/resize:params/format:format/:image', imagesHandler);
 
 export default router;

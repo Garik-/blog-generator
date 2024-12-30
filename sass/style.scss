@@ -193,6 +193,20 @@ monospace;
 
 .post-content {
 
+  figure {
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    text-align: center;
+
+    img {
+      height: auto;
+      max-width: 100%;
+      margin: 0 auto;
+      display: block;
+    }
+  }
+
   blockquote {
     box-shadow: rgb(36, 36, 36) 3px 0px 0px 0px inset;
     padding-left: 23px;
@@ -506,7 +520,9 @@ monospace;
 
   .post-content {
 
-
+    figure {
+      margin-top: 56px;
+    }
 
     p,
     li {
@@ -672,6 +688,10 @@ monospace;
 
   .post-content {
 
+    figure {
+      margin-top: 56px;
+    }
+
     p,
     li {
       font-size: 20px;
@@ -823,6 +843,10 @@ monospace;
 
   .post-content {
 
+    figure {
+      margin-top: 56px;
+    }
+
     p,
     li {
       font-size: 20px;
@@ -944,6 +968,10 @@ monospace;
   // Pixel 7
 
   .post-content {
+
+    figure {
+      margin-top: 40px;
+    }
 
     p,
     li {
