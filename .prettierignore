@@ -1,0 +1,10 @@
+node_modules/
+/data
+/images
+.DS_Store
+*.css.map
+*.md
+*.scss
+*.pug
+*.json
+/public
