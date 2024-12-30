@@ -328,12 +328,26 @@ monospace;
     margin-left: 12px;
   }
 
-  .author-photo {
-    width: 48px;
-    height: 48px;
-    border: 2px solid rgba(255, 255, 255, 1);
-    border-radius: 50%;
+  .author-photo-link {
+    position: relative;
+  }
 
+  .author-photo {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: block;
+    background-color: #F2F2F2;
+    box-sizing: border-box;
+  }
+  .author-photo-shadow {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: none;
+    position: absolute;
+    top:0px;
   }
 
   .author-name {
@@ -384,6 +398,10 @@ monospace;
     &-left {
       justify-content: space-between;
       display: flex;
+
+      .avatar-box {
+        position: relative;
+      }
     }
 
     .author-name {
@@ -422,6 +440,24 @@ monospace;
     background-color: #F2F2F2;
     width: 64px;
     height: 64px;
+  }
+
+  .avatar-big-shadow, .avatar-shadow {
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+    border: none;
+    position: absolute;
+    top:0;
+  }
+
+  .avatar-big-shadow {
+    width: 64px;
+    height: 64px;
+  }
+
+  .avatar-shadow {
+    width: 48px;
+    height: 48px;
   }
 }
 
@@ -552,6 +588,7 @@ monospace;
     }
 
     >aside {
+      max-width: 368px;
       min-width: 368px;
       padding-left: clamp(24px, -1056px + 100vw, 40px);
       display: block;

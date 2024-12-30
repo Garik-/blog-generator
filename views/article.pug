@@ -9,8 +9,9 @@ block content
                 h1(class="post-title") #{article.title}
 
                 section(class="post-info")
-                    a(rel="noopener follow" href="/")
+                    a(rel="noopener follow" class="author-photo-link" href="/")
                         img(alt="DataFairy" class="author-photo" src="/v1/resize:fill:88:88/public/avatar.jpg" width="44" height="44" loading="lazy")
+                        div(class="author-photo-shadow")
                     div(class="post-info-author")
                         a(class="author-name" rel="noopener follow" href="/") #{meta.author.name}
                         div(class="post-info-date")
@@ -29,8 +30,11 @@ block content
                 div(class="space")
                 section(class="author-section")
                     a(class="author-section-left" rel="noopener follow" href="/")
-                        img(alt="DataFairy" class="avatar mobile-hide" src="/v1/resize:fill:96:96/public/avatar.jpg" width="48" height="48" loading="lazy")
-                        img(alt="DataFairy" class="avatar-big mobile-only" src="/v1/resize:fill:128:128/public/avatar.jpg" width="64" height="64" loading="lazy")
+                        div(class="avatar-box")
+                            img(alt="DataFairy" class="avatar mobile-hide" src="/v1/resize:fill:96:96/public/avatar.jpg" width="48" height="48" loading="lazy")
+                            div(class="avatar-shadow mobile-hide")
+                            img(alt="DataFairy" class="avatar-big mobile-only" src="/v1/resize:fill:128:128/public/avatar.jpg" width="64" height="64" loading="lazy")
+                            div(class="avatar-big-shadow mobile-only")
                     div
                         a(class="author-name" rel="noopener follow" href="/") Written by #{meta.author.name}
                         div(class="author-summary") #{meta.author.summary}
