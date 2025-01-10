@@ -1,0 +1,40 @@
+@mixin mobile {
+  // Pixel 7
+  @media all and (max-width: 551.98px) {
+    @content;
+  }
+}
+
+@mixin small {
+  // iPad mini
+  @media all and (min-width: 728px) and (max-width: 903.98px) {
+    @content;
+  }
+}
+
+@mixin medium {
+  // iPad Pro
+  @media all and (min-width: 904px) and (max-width: 1079.98px) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media all and (min-width: 1080px) {
+    @content;
+  }
+}
+
+@mixin not-mobile {
+  @include large {
+    @content;
+  }
+
+  @include medium {
+    @content;
+  }
+
+  @include small {
+    @content;
+  }
+}
