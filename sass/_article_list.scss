@@ -1,0 +1,135 @@
+@use 'variables';
+@use 'respond';
+
+.article-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.article-item {
+  max-height: 450px;
+  transition:
+    opacity 300ms 300ms,
+    max-height 300ms;
+  overflow: hidden;
+  opacity: 1;
+
+  justify-content: center;
+  display: flex;
+
+  > article {
+    margin: 32px 24px 0;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+
+    @include respond.medium {
+      max-width: 680px;
+    }
+  }
+
+  &:nth-child(1) {
+    > article {
+      margin-top: 0px;
+
+      > .article-author {
+        margin-top: 0px;
+      }
+    }
+  }
+}
+
+.article-content {
+  display: flex;
+
+  &-info {
+    flex: 1 1 auto;
+    word-break: break-word;
+    display: block;
+  }
+
+  &-title {
+    font-family: variables.$font-family;
+    color: #242424;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+
+    @include respond.not-mobile {
+      font-size: 24px;
+      letter-spacing: -0.016em;
+      max-height: 90px;
+      -webkit-line-clamp: 3;
+    }
+
+    @include respond.mobile {
+      -webkit-line-clamp: 4;
+      max-height: 96px;
+      letter-spacing: 0;
+      font-size: 20px;
+      line-height: 24px;
+    }
+  }
+
+  &-desc {
+    margin-top: 8px;
+    font-weight: 400;
+    line-height: 20px;
+    font-family: variables.$font-family;
+    color: #6b6b6b;
+    font-size: 16px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    max-height: 40px;
+    -webkit-line-clamp: 2;
+  }
+
+  &-date {
+    height: 48px;
+    justify-content: space-between;
+    display: flex;
+    font-size: 13px;
+    color: #6b6b6b;
+    font-family: variables.$font-family;
+    line-height: 20px;
+    font-weight: 400;
+    align-items: center;
+
+    @include respond.large {
+      margin-top: 10px;
+    }
+
+    @include respond.mobile {
+      margin-top: 12px;
+    }
+  }
+
+  &-image {
+    @include respond.not-mobile {
+      margin-left: 56px;
+
+      &-mobile {
+        display: none;
+      }
+    }
+
+    @include respond.mobile {
+      margin-left: 24px;
+
+      &-desktop {
+        display: none;
+      }
+    }
+  }
+}
+
+.article-separator {
+  border-bottom: solid 1px #f2f2f2;
+  width: 100%;
+  height: 0px;
+  margin-top: 20px;
+}

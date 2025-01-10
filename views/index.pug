@@ -1,27 +1,13 @@
 extends layout
 
 include ./includes/tags.pug
+include ./includes/articles.pug
 
 block content
   div(class="page")
     div(class="main-layout")
       main
-        div(class="aricle-list main-first")
-
-          each item in items
-            div(class="article-item")
-                article
-                  a(class="article-content" href="/"+item.uri rel="noopener follow")
-                    div(class="article-content-info")
-                      h2(class="article-content-title") #{item.title}
-                      h3(class="article-content-desc") #{item.description}
-                      div(class="article-content-date") 
-                        div #{item.date}
-                    if item.image
-                      div(class="article-content-image")
-                        img(alt=item.title class="article-content-image-mobile" src="/v1/resize:fill:160:106/"+item.image width="80" height="53" loading="lazy")
-                        img(alt=item.title class="article-content-image-desktop" src="/v1/resize:fill:320:214/"+item.image width="160" height="107" loading="lazy")
-                  div(class="article-separator")
+        +article-list(items)
 
       aside
         div(class="sticky")
