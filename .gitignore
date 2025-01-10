@@ -3,3 +3,4 @@ node_modules/
 /images
 .DS_Store
 *.css.map
+/dist

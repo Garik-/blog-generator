@@ -111,11 +111,26 @@ function resizeHandler(imagesPath) {
   };
 }
 
+const imageURLs = new Set()
+
+export function addImageURL(url) {
+  imageURLs.add(url)
+}
+
 const publicImagesHandler = resizeHandler(PUBLIC_IMAGES_PATH);
 const imagesHandler = resizeHandler(IMAGES_PATH);
 
 router.get('/resize:params/public/:image', publicImagesHandler);
 router.get('/resize:params/:image', imagesHandler);
 router.get('/resize:params/format:format/:image', imagesHandler);
+
+router.get('/images', (req, res) => {
+  res.type('text/plain');
+  imageURLs.forEach(url => {
+    res.write(url + "\n")
+  });
+  res.end()
+})
+
 
 export default router;
