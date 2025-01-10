@@ -11,10 +11,11 @@ $ wget -r http://localhost:3000/
 ```
 
 ## TODO
+
 - [x] article page
 - [ ] tags page
 - [x] support images
-- [x] sass support, compress css  
+- [x] sass support, compress css
 - [x] responsive images
 - [x] compress html
 - [ ] availability

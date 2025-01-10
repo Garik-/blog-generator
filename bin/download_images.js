@@ -6,7 +6,7 @@ import url from 'url';
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const TARGET_URL = 'http://localhost:3000/v1/images';
+const TARGET_URL = 'http://localhost:3000/v1/images'; //TODO: move to env
 const LOCAL_DIR = path.resolve(__dirname, '../');
 const DIST_DIR = path.join(LOCAL_DIR, 'dist');
 
@@ -40,41 +40,43 @@ function downloadImagesList(targetUrl, destDir) {
     fs.mkdirSync(destDir, { recursive: true });
   }
 
-  http.get(targetUrl, (response) => {
-    if (response.statusCode !== 200) {
-      exitOnError(`Download error: ${response.statusCode}`);
-    }
+  http
+    .get(targetUrl, (response) => {
+      if (response.statusCode !== 200) {
+        exitOnError(`Download error: ${response.statusCode}`);
+      }
 
-    let data = '';
-    response.on('data', (chunk) => {
-      data += chunk;
-    });
-
-    response.on('end', () => {
-      const lines = data.split('\n').filter(line => line.trim() !== '');
-      lines.forEach((line) => {
-        const fileUrl = url.resolve(targetUrl, line);
-        const filePath = path.join(destDir, line);
-
-        const fileDir = path.dirname(filePath);
-        if (!fs.existsSync(fileDir)) {
-          fs.mkdirSync(fileDir, { recursive: true });
-        }
-
-        if (!fs.existsSync(filePath)) {
-          downloadFile(fileUrl, filePath, (err) => {
-            if (err) {
-              console.error(`Error downloading ${fileUrl}: ${err}`);
-            } else {
-              console.log(line);
-            }
-          });
-        }
+      let data = '';
+      response.on('data', (chunk) => {
+        data += chunk;
       });
+
+      response.on('end', () => {
+        const lines = data.split('\n').filter((line) => line.trim() !== '');
+        lines.forEach((line) => {
+          const fileUrl = url.resolve(targetUrl, line);
+          const filePath = path.join(destDir, line);
+
+          const fileDir = path.dirname(filePath);
+          if (!fs.existsSync(fileDir)) {
+            fs.mkdirSync(fileDir, { recursive: true });
+          }
+
+          if (!fs.existsSync(filePath)) {
+            downloadFile(fileUrl, filePath, (err) => {
+              if (err) {
+                console.error(`Error downloading ${fileUrl}: ${err}`);
+              } else {
+                console.log(line);
+              }
+            });
+          }
+        });
+      });
+    })
+    .on('error', (err) => {
+      exitOnError(err.message);
     });
-  }).on('error', (err) => {
-    exitOnError(err.message);
-  });
 }
 
 console.log(`Downloading images list from ${TARGET_URL} to ${DIST_DIR}`);

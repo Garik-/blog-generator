@@ -72,7 +72,7 @@ router.get('/site.webmanifest', function (req, res) {
 
 function createImageURL(file, size, format) {
   const formattedPath = format ? `format:${format}/` : '';
-  const imageURL = `/v1/resize:fit:${size}/${formattedPath}${file}`
+  const imageURL = `/v1/resize:fit:${size}/${formattedPath}${file}`;
 
   addImageURL(imageURL);
   return imageURL;
@@ -85,7 +85,7 @@ export function createSrcset(
 ) {
   return sizes
     .map((size) => {
-      return createImageURL(file, size, format) + ` ${size}w`
+      return createImageURL(file, size, format) + ` ${size}w`;
       // const formattedPath = format ? `format:${format}/` : '';
       // return `/v1/resize:fit:${size}/${formattedPath}${file} ${size}w`;
     })
@@ -110,11 +110,11 @@ async function replaceImages(context) {
       <source srcset="${createSrcset(file)}" sizes="${sizes}">
       <img alt="" width="${dimensions.width}" height="${dimensions.height}" loading="lazy" role="presentation" src="/v1/resize:fit:1400/${file}">
   </picture>
-  ${ caption ? `<figcaption>${caption}</figcaption>` :'' }
+  ${caption ? `<figcaption>${caption}</figcaption>` : ''}
 </figure>
 `;
 
-    addImageURL(`/v1/resize:fit:1400/${file}`)
+    addImageURL(`/v1/resize:fit:1400/${file}`);
 
     context = context.replace(src, figure);
   }

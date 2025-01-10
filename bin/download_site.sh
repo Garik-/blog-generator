@@ -1,5 +1,5 @@
 #!/bin/bash
-TARGET_URL="http://localhost:3000/"
+TARGET_URL="http://localhost:3000/" # TODO: move to env
 LOCAL_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )/../" &> /dev/null && pwd )
 DIST_DIR="$LOCAL_DIR/dist"
 

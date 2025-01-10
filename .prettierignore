@@ -3,8 +3,4 @@ node_modules/
 /images
 .DS_Store
 *.css.map
-*.md
-*.scss
-*.pug
-*.json
 /public
