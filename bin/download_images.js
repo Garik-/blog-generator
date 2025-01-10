@@ -63,6 +63,7 @@ function downloadImagesList(targetUrl, destDir) {
           }
 
           if (!fs.existsSync(filePath)) {
+            // eslint-disable-next-line sonarjs/no-nested-functions
             downloadFile(fileUrl, filePath, (err) => {
               if (err) {
                 console.error(`Error downloading ${fileUrl}: ${err}`);
