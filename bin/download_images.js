@@ -61,13 +61,15 @@ function downloadImagesList(targetUrl, destDir) {
           fs.mkdirSync(fileDir, { recursive: true });
         }
 
-        downloadFile(fileUrl, filePath, (err) => {
-          if (err) {
-            console.error(`Error downloading ${fileUrl}: ${err}`);
-          } else {
-            console.log(`Downloaded ${fileUrl} to ${filePath}`);
-          }
-        });
+        if (!fs.existsSync(filePath)) {
+          downloadFile(fileUrl, filePath, (err) => {
+            if (err) {
+              console.error(`Error downloading ${fileUrl}: ${err}`);
+            } else {
+              console.log(line);
+            }
+          });
+        }
       });
     });
   }).on('error', (err) => {
