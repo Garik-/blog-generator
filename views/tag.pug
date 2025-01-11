@@ -1,0 +1,41 @@
+extends layout
+
+block meta
+    script(src="/javascripts/tag.js")
+
+block content
+    div(class="tag-layout")
+        section(class="topics-section")
+            div(class="container")
+                div(class="topics-carousel")
+                    div(class="topics-carousel-container")
+                        each tag in tags
+                            a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
+                                div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
+                        each tag in tags
+                            a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
+                                div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
+                        each tag in tags
+                            a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
+                                div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
+                        each tag in tags
+                            a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
+                                div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
+                        each tag in tags
+                            a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
+                                div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
+                        each tag in tags
+                            a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
+                                div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
+                        each tag in tags
+                            a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
+                                div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
+                        each tag in tags
+                            a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
+                                div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
+                        div(class="topics-carousel-right")
+                            button(aria-label="next sections" tabindex="0")
+                                <svg width="26px" height="26px" class="svgIcon-use" viewBox="0 0 19 19" style="transform:rotate(180deg)" aria-hidden="true"><path fill-rule="evenodd" d="M11.47 13.969 6.986 9.484 11.47 5l.553.492L8.03 9.484l3.993 3.993z"></path></svg>
+                        div(class="topics-carousel-left")
+                            button(aria-label="previous sections" tabindex="0")
+                                <svg width="26px" height="26px" class="svgIcon-use" viewBox="0 0 19 19" aria-hidden="true"><path fill-rule="evenodd" d="M11.47 13.969 6.986 9.484 11.47 5l.553.492L8.03 9.484l3.993 3.993z"></path></svg>

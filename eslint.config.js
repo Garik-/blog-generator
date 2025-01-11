@@ -13,7 +13,7 @@ export default [
     },
   },
   { files: ['**/*.{js}'] },
-  { languageOptions: { globals: globals.node } },
+  { languageOptions: { globals: { ...globals.node, ...globals.browser } } },
   pluginJs.configs.recommended,
   sonarjs.configs.recommended,
   {

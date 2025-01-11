@@ -1,0 +1,122 @@
+@use 'respond';
+
+.topics-carousel {
+  display: block;
+  position: relative;
+  margin-top: 22px;
+
+  @include respond.not-mobile {
+    margin-bottom: 46px;
+  }
+  @include respond.mobile {
+    margin-bottom: 38px;
+  }
+
+  &-container {
+    align-items: center;
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  &-item {
+    &-text {
+      font-weight: 400;
+      line-height: 20px;
+      font-family: sohne, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #242424;
+      border-radius: 100px;
+      background-color: #f2f2f2;
+      position: relative;
+      border: 1px solid #f2f2f2;
+      white-space: nowrap;
+      transition: background 300ms ease;
+      padding: 8px 16px;
+
+      &[data-selected] {
+        border: 1px solid #242424;
+      }
+    }
+
+    &-link {
+      padding: 0;
+      cursor: pointer;
+      border: none;
+      margin-right: 8px;
+    }
+  }
+
+  %buttons-shared {
+    opacity: 1;
+    height: 42px;
+    pointer-events: none;
+    padding-left: 42px;
+    bottom: 12px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 0;
+
+    button {
+      padding: 0;
+      cursor: pointer;
+      border: none;
+      margin: 2px;
+      pointer-events: all;
+    }
+  }
+
+  &-right {
+    @extend %buttons-shared;
+    right: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.75) 25%,
+      rgba(255, 255, 255, 0.9) 50%,
+      rgba(255, 255, 255, 1) 75%
+    );
+  }
+
+  &-left {
+    @extend %buttons-shared;
+    left: 0;
+    background: linear-gradient(
+      270deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.75) 25%,
+      rgba(255, 255, 255, 0.9) 50%,
+      rgba(255, 255, 255, 1) 75%
+    );
+  }
+}
+
+.topics-section {
+  display: flex;
+  justify-content: center;
+
+  .container {
+    width: 100%;
+    max-width: 1192px;
+    min-width: 0;
+
+    @include respond.large {
+      margin: 0 24px;
+    }
+
+    @include respond.medium {
+      margin: 0 24px;
+    }
+
+    @include respond.small {
+      margin: 0px;
+    }
+
+    @include respond.mobile {
+      margin: 0px;
+    }
+  }
+}

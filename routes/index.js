@@ -13,6 +13,16 @@ function formatDate(dateMs) {
   );
 }
 
+function createTags(tags, selectedTag = '') {
+  return Object.keys(tags)
+    .sort((a, b) => tags[b].length - tags[a].length)
+    .map((tag) => ({
+      link: `/tag/${tag}`,
+      name: tag.charAt(0).toUpperCase() + tag.slice(1),
+      isSelected: tag === selectedTag,
+    }));
+}
+
 /* GET home page. */
 router.get('/', function (req, res) {
   const data = getData();
@@ -38,13 +48,38 @@ router.get('/', function (req, res) {
     };
   });
 
-  const tags = Object.keys(data.tags);
+  const tags = createTags(data.tags);
 
   res.render('index', { meta, items, tags });
 });
 
 router.get('/tag/:tag', function (req, res) {
-  res.render('tag', {});
+  const data = getData();
+
+  if (!data.tags[req.params.tag]) {
+    res.status(404).send('Tag not found');
+    return;
+  }
+
+  const pages = data.tags[req.params.tag].map((id) => {
+    const page = data.pages[id];
+    return {
+      title: page.title,
+      uri: page.uri,
+      description: page.description,
+      tags: page.tags,
+      date: formatDate(page.birthtimeMs),
+      image: page.image,
+    };
+  });
+
+  const meta = Object.assign({}, data.siteMetadata, {
+    title: req.params.tag,
+  });
+
+  const tags = createTags(data.tags, req.params.tag);
+
+  res.render('tag', { meta, tags, pages });
 });
 
 router.get('/site.webmanifest', function (req, res) {

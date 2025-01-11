@@ -43,6 +43,19 @@ input {
   -webkit-tap-highlight-color: transparent;
 }
 
+button {
+  background: transparent;
+  overflow: visible;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  margin: 0;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -79,4 +92,9 @@ ul {
   padding: 0;
   list-style: none;
   list-style-image: none;
+}
+
+:root {
+  --reach-tabs: 1;
+  --reach-menu-button: 1;
 }

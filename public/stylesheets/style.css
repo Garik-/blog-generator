@@ -43,6 +43,15 @@ input {
   -webkit-tap-highlight-color: transparent;
 }
 
+button {
+  background: transparent;
+  overflow: visible;
+}
+
+button, input, optgroup, select, textarea {
+  margin: 0;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -67,6 +76,11 @@ ul {
   padding: 0;
   list-style: none;
   list-style-image: none;
+}
+
+:root {
+  --reach-tabs: 1;
+  --reach-menu-button: 1;
 }
 
 /*XCode style (c) Angel Garcia <angelgarcia.mail@gmail.com>*/
@@ -567,6 +581,79 @@ ul {
   height: 0px;
   margin-top: 20px;
 }
+
+.topics-carousel {
+  display: block;
+  position: relative;
+  margin-top: 22px;
+}
+.topics-carousel-container {
+  align-items: center;
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.topics-carousel-item-text {
+  font-weight: 400;
+  line-height: 20px;
+  font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #242424;
+  border-radius: 100px;
+  background-color: #f2f2f2;
+  position: relative;
+  border: 1px solid #f2f2f2;
+  white-space: nowrap;
+  transition: background 300ms ease;
+  padding: 8px 16px;
+}
+.topics-carousel-item-text[data-selected] {
+  border: 1px solid #242424;
+}
+.topics-carousel-item-link {
+  padding: 0;
+  cursor: pointer;
+  border: none;
+  margin-right: 8px;
+}
+.topics-carousel .topics-carousel-left, .topics-carousel .topics-carousel-right {
+  opacity: 1;
+  height: 42px;
+  pointer-events: none;
+  padding-left: 42px;
+  bottom: 12px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 0;
+}
+.topics-carousel .topics-carousel-left button, .topics-carousel .topics-carousel-right button {
+  padding: 0;
+  cursor: pointer;
+  border: none;
+  margin: 2px;
+  pointer-events: all;
+}
+.topics-carousel-right {
+  right: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 25%, rgba(255, 255, 255, 0.9) 50%, rgb(255, 255, 255) 75%);
+}
+.topics-carousel-left {
+  left: 0;
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 25%, rgba(255, 255, 255, 0.9) 50%, rgb(255, 255, 255) 75%);
+}
+
+.topics-section {
+  display: flex;
+  justify-content: center;
+}
+.topics-section .container {
+  width: 100%;
+  max-width: 1192px;
+  min-width: 0;
+}
 @media all and (min-width: 1080px) {
   .mobile-only {
     display: none !important;
@@ -687,6 +774,12 @@ ul {
   .article-content-image-mobile {
     display: none;
   }
+  .topics-carousel {
+    margin-bottom: 46px;
+  }
+  .topics-section .container {
+    margin: 0 24px;
+  }
 }
 @media all and (min-width: 904px) and (max-width: 1079.98px) {
   .mobile-only {
@@ -801,6 +894,12 @@ ul {
   .article-content-image-mobile {
     display: none;
   }
+  .topics-carousel {
+    margin-bottom: 46px;
+  }
+  .topics-section .container {
+    margin: 0 24px;
+  }
 }
 @media all and (min-width: 728px) and (max-width: 903.98px) {
   .mobile-only {
@@ -901,6 +1000,12 @@ ul {
   }
   .article-content-image-mobile {
     display: none;
+  }
+  .topics-carousel {
+    margin-bottom: 46px;
+  }
+  .topics-section .container {
+    margin: 0px;
   }
 }
 @media all and (max-width: 551.98px) {
@@ -1003,6 +1108,12 @@ ul {
   }
   .article-content-image-desktop {
     display: none;
+  }
+  .topics-carousel {
+    margin-bottom: 38px;
+  }
+  .topics-section .container {
+    margin: 0px;
   }
 }
 /*# sourceMappingURL=style.css.map */
