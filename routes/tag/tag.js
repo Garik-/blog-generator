@@ -1,5 +1,5 @@
 import getData from '../../data.js';
-import { formatDate } from '../format.js';
+import { formatDate, capitalize } from '../format.js';
 import { createTags } from '../tags.js';
 
 export function getTagContent(params) {
@@ -9,7 +9,7 @@ export function getTagContent(params) {
     throw new Error('Tag not found');
   }
 
-  const pages = data.tags[params.tag].map((id) => {
+  const stories = data.tags[params.tag].map((id) => {
     const page = data.pages[id];
     return {
       title: page.title,
@@ -22,10 +22,14 @@ export function getTagContent(params) {
   });
 
   const meta = Object.assign({}, data.siteMetadata, {
-    title: params.tag,
+    title:
+      'The most insightful stories about ' +
+      capitalize(params.tag) +
+      '  by ' +
+      data.siteMetadata.author.name,
   });
 
   const tags = createTags(data.tags, params.tag);
 
-  return { meta, tags, pages };
+  return { meta, tags, stories, tag: capitalize(params.tag) };
 }

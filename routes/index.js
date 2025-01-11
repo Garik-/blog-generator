@@ -17,7 +17,8 @@ router.get('/tag/:tag', function (req, res) {
     const content = getTagContent(req.params);
     res.render('tag', content);
   } catch (err) {
-    res.status(404).send(err.message);
+    console.error(err);
+    res.status(404).send(err.message); // TODO: хорошо бы иметь типы ошибок, что бы отличать бизнес логику от не бизнес
   }
 });
 
@@ -49,6 +50,7 @@ router.get('/:article', async function (req, res) {
     const content = await getArticleContent(req.params);
     res.render('article', content);
   } catch (err) {
+    console.error(err);
     res.status(404).send(err.message);
   }
 });

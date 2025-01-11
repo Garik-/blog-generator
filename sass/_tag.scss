@@ -1,4 +1,5 @@
 @use 'respond';
+@use 'variables';
 
 .topics-carousel {
   display: block;
@@ -25,7 +26,7 @@
     &-text {
       font-weight: 400;
       line-height: 20px;
-      font-family: sohne, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: variables.$font-family;
       font-size: 14px;
       color: #242424;
       border-radius: 100px;
@@ -97,26 +98,338 @@
 .topics-section {
   display: flex;
   justify-content: center;
+}
 
-  .container {
-    width: 100%;
-    max-width: 1192px;
-    min-width: 0;
+%container-shared {
+  width: 100%;
+  max-width: 1192px;
+  min-width: 0;
+}
 
-    @include respond.large {
-      margin: 0 24px;
+.tag-container {
+  @extend %container-shared;
+
+  @include respond.large {
+    margin: 0 24px;
+  }
+
+  @include respond.medium {
+    margin: 0 24px;
+  }
+
+  @include respond.small {
+    margin: 0px;
+  }
+
+  @include respond.mobile {
+    margin: 0px;
+  }
+}
+
+.tag-border {
+  height: 0px;
+  width: 100%;
+  border-bottom: solid 1px #f2f2f2;
+}
+
+.tag-content {
+  position: relative;
+  display: block;
+
+  > * {
+    justify-content: center;
+    display: flex;
+  }
+
+  .header {
+    .container {
+      @extend %container-shared;
+
+      @include respond.not-mobile {
+        margin: 0 24px 56px;
+      }
+
+      @include respond.mobile {
+        margin: 0px 24px 48px;
+      }
     }
 
-    @include respond.medium {
-      margin: 0 24px;
+    h2 {
+      font-family: variables.$font-family;
+      color: #242424;
+      font-weight: 500;
+      text-align: center;
+
+      @include respond.not-mobile {
+        line-height: 52px;
+        font-size: 42px;
+        letter-spacing: -0.011em;
+      }
+
+      @include respond.mobile {
+        font-size: 24px;
+        line-height: 30px;
+        letter-spacing: -0.016em;
+      }
+    }
+  }
+
+  .stories {
+    &-container {
+      @extend %container-shared;
+
+      @include respond.large {
+        margin: 0 24px 80px;
+      }
+
+      @include respond.medium {
+        margin: 0 24px 80px;
+      }
+
+      @include respond.small {
+        margin: 0 24px 56px;
+      }
+
+      @include respond.mobile {
+        margin: 0px 24px 56px;
+      }
     }
 
-    @include respond.small {
-      margin: 0px;
+    &-title {
+      margin: 40px 0;
+
+      h2 {
+        font-family: variables.$font-family;
+        color: #242424;
+        font-weight: 500;
+
+        @include respond.not-mobile {
+          font-size: 24px;
+          line-height: 30px;
+          letter-spacing: -0.016em;
+        }
+
+        @include respond.mobile {
+          letter-spacing: 0;
+          line-height: 24px;
+          font-size: 20px;
+        }
+      }
     }
 
-    @include respond.mobile {
-      margin: 0px;
+    &-mobile {
+      @include respond.not-mobile {
+        display: none;
+      }
+
+      .grid {
+        flex-direction: column;
+        display: flex;
+      }
+
+      &-item {
+        display: block;
+        margin-top: 32px;
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        article {
+          height: 100%;
+        }
+      }
+    }
+
+    &-desktop {
+      @include respond.mobile {
+        display: none;
+      }
+
+      .grid {
+        gap: 80px 48px;
+        display: grid;
+
+        @include respond.large {
+          grid-template-columns: repeat(6, 1fr);
+        }
+
+        @include respond.medium {
+          grid-template-columns: repeat(6, 1fr);
+        }
+
+        @include respond.small {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      &-item {
+        @include respond.large {
+          &:nth-child(1),
+          &:nth-child(2) {
+            grid-column: span 3;
+          }
+          grid-column: span 2;
+        }
+
+        @include respond.medium {
+          &:nth-child(1),
+          &:nth-child(2) {
+            grid-column: span 3;
+          }
+          grid-column: span 2;
+        }
+
+        article {
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .story {
+    &-grid {
+      height: 100%;
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto 1fr;
+
+      @include respond.mobile {
+        gap: 24px 0;
+        grid-template-areas:
+          'image image image image image image image image image image image image'
+          'content content content content content content content content content content content content';
+      }
+
+      @include respond.small {
+        gap: 24px 0;
+        grid-template-areas:
+          'image image image image image image image image image image image image'
+          'content content content content content content content content content content content content';
+      }
+
+      @include respond.medium {
+        gap: 32px 0;
+        grid-template-areas:
+          'image image image image image image image image image image image image'
+          'content content content content content content content content content content content content';
+      }
+
+      @include respond.large {
+        gap: 32px 0;
+        grid-template-areas:
+          'image image image image image image image image image image image image'
+          'content content content content content content content content content content content content';
+      }
+    }
+
+    &-image {
+      grid-area: image;
+
+      img {
+        width: 100%;
+        border-radius: 2px;
+        aspect-ratio: 2;
+        object-fit: cover;
+        object-position: 50% 50%;
+      }
+    }
+    &-content {
+      grid-area: content;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      &-wrap {
+        flex-grow: 1;
+        flex-direction: column;
+        width: 100%;
+        display: flex;
+      }
+
+      &-info {
+        word-break: break-word;
+        padding-bottom: 12px;
+        display: block;
+
+        @include respond.mobile {
+          flex: 1 0 auto;
+        }
+
+        > a {
+          margin: 0;
+          padding: 0;
+          font-weight: inherit;
+          letter-spacing: inherit;
+          border: inherit;
+          font-family: inherit;
+          fill: inherit;
+          color: inherit;
+          cursor: pointer;
+          font-size: inherit;
+        }
+
+        &-title {
+          h2 {
+            font-family: variables.$font-family;
+            color: #242424;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            font-weight: 700;
+
+            @include respond.mobile {
+              font-size: 20px;
+              line-height: 24px;
+              letter-spacing: 0;
+              max-height: 48px;
+              -webkit-line-clamp: 2;
+            }
+          }
+        }
+
+        &-description {
+          padding-top: 8px;
+          display: block;
+
+          h3 {
+            -webkit-line-clamp: 2;
+            max-height: 40px;
+            font-size: 16px;
+            -webkit-box-orient: vertical;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            color: #6b6b6b;
+            overflow: hidden;
+            font-family: variables.$font-family;
+            line-height: 20px;
+            font-weight: 400;
+          }
+        }
+      }
+
+      &-date {
+        font-size: 13px;
+        color: #6b6b6b;
+        font-family: variables.$font-family;
+        line-height: 20px;
+        font-weight: 400;
+
+        display: flex;
+        height: 48px;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      &-separator {
+        .border {
+          margin-top: 0px;
+          height: 0px;
+          border-bottom: solid 1px #f2f2f2;
+        }
+      }
     }
   }
 }

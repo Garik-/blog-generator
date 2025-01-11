@@ -1,7 +1,9 @@
+import { capitalize } from './format.js';
+
 export function createTag(tag, selectedTag = '') {
   return {
     link: `/tag/${tag}`,
-    name: tag.charAt(0).toUpperCase() + tag.slice(1),
+    name: capitalize(tag),
     isSelected: tag === selectedTag,
   };
 }

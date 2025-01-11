@@ -2,34 +2,14 @@ extends layout
 
 block meta
     script(src="/javascripts/tag.js")
+    title=meta.title
 
 block content
     div(class="tag-layout")
         section(class="topics-section")
-            div(class="container")
+            div(class="tag-container")
                 div(class="topics-carousel")
                     div(class="topics-carousel-container")
-                        each tag in tags
-                            a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
-                                div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
-                        each tag in tags
-                            a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
-                                div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
-                        each tag in tags
-                            a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
-                                div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
-                        each tag in tags
-                            a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
-                                div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
-                        each tag in tags
-                            a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
-                                div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
-                        each tag in tags
-                            a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
-                                div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
-                        each tag in tags
-                            a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
-                                div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
                         each tag in tags
                             a(class="topics-carousel-item-link" rel="noopener follow" href=tag.link)
                                 div(class="topics-carousel-item-text" data-selected=tag.isSelected) #{tag.name}
@@ -39,3 +19,60 @@ block content
                         div(class="topics-carousel-left")
                             button(aria-label="previous sections" tabindex="0")
                                 <svg width="26px" height="26px" class="svgIcon-use" viewBox="0 0 19 19" aria-hidden="true"><path fill-rule="evenodd" d="M11.47 13.969 6.986 9.484 11.47 5l.553.492L8.03 9.484l3.993 3.993z"></path></svg>
+        main(class="tag-content")
+            section(class="header")
+                div(class="container") 
+                    h2  #{tag}
+            div(class="separator")
+                div(class="tag-container")
+                    div(class="tag-border")
+            section(class="stories")
+                div(class="stories-container")
+                    div(class="stories-title")
+                        h2 Recommended stories 
+                    div(class="stories-mobile")
+                        div(class="grid")
+                            each story in stories 
+                                div(class="stories-mobile-item")
+                                    article
+                                        div(class="story-grid" role="link" data-href="/"+story.uri)
+                                            if story.image
+                                                div(class="story-image")
+                                                    img(alt=story.title src="/v1/resize:fit:1358/format:webp/"+story.image loading="eager")
+                                            div(class="story-content")
+                                                div(class="story-content-wrap")
+                                                    div(class="story-content-info")
+                                                        a(href="/"+story.uri rel="noopener follow")
+                                                            div(class="story-content-info-title") 
+                                                                h2 #{story.title}
+                                                            div(class="story-content-info-description")
+                                                                h3 #{story.description}
+
+                                                    div(class="story-content-date")
+                                                        div #{story.date}
+                                                    div(class="story-content-separator")
+                                                        div(class="border")
+
+                    div(class="stories-desktop")
+                        div(class="grid")
+                            each story, index in stories 
+                                div(class="stories-desktop-item" )
+                                    article
+                                        div(class="story-grid" role="link" data-href="/"+story.uri)
+                                            if story.image
+                                                div(class="story-image")
+                                                    img(alt=story.title src="/v1/resize:fit:1358/format:webp/"+story.image loading="eager")
+                                            div(class="story-content")
+                                                div(class="story-content-wrap")
+                                                    div(class="story-content-info")
+                                                        a(href="/"+story.uri rel="noopener follow")
+                                                            div(class="story-content-info-title") 
+                                                                h2 #{story.title}
+                                                            div(class="story-content-info-description")
+                                                                h3 #{story.description}
+
+                                                    div(class="story-content-date")
+                                                        div #{story.date}
+                                                    div(class="story-content-separator")
+                                                        div(class="border")
+
