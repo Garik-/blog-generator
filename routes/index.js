@@ -1,5 +1,5 @@
 import express from 'express';
-import getData from '../data.js';
+import getData, { removeFileExtension } from '../data.js';
 import { getArticleContent } from './article/article.js';
 import { getIndexContent } from './index/index.js';
 import { getTagContent } from './tag/tag.js';
@@ -14,6 +14,7 @@ router.get('/', function (req, res) {
 
 router.get('/tag/:tag', function (req, res) {
   try {
+    req.params.tag = removeFileExtension(req.params.tag);
     const content = getTagContent(req.params);
     res.render('tag', content);
   } catch (err) {

@@ -89,7 +89,7 @@ function translit(word) {
   return answer;
 }
 
-function removeFileExtension(filename) {
+export function removeFileExtension(filename) {
   return filename.replace(/\.[^/.]+$/, '');
 }
 
@@ -176,7 +176,7 @@ async function getData() {
     const stats = await fs.stat(filePath);
     const title = removeFileExtension(file);
 
-    const uri = translit(title);
+    const uri = translit(title) + '.html';
     if (data.URIMap[uri]) {
       throw new Error(`Duplicate URI: ${uri}`);
     }
