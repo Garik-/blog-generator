@@ -65,8 +65,9 @@ export async function getArticleContent(params) {
   article.date = formatDate(article.birthtimeMs);
   article.content = await replaceImages(article.content);
 
+  let tags = [];
   if (article['tags'] && article.tags.length > 0) {
-    article.tags = article.tags.map(createTag);
+    tags = article.tags.map(createTag);
   }
 
   const meta = Object.assign({}, data.siteMetadata, {
@@ -76,5 +77,5 @@ export async function getArticleContent(params) {
     modified_time: formatISO(new Date(article.mtimeMs)),
   });
 
-  return { meta, article };
+  return { meta, article: { ...article, tags } };
 }
