@@ -50,10 +50,10 @@ $ npm run download
 ## TODO
 
 - [x] article page
-- [ ] tags page
+- [x] tags page
 - [x] support images
 - [x] sass support
-- [ ] compress css
+- [x] compress css
 - [x] responsive images
 - [x] compress html
 - [ ] availability
