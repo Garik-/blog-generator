@@ -56,12 +56,18 @@ block content
                     div(class="stories-desktop")
                         div(class="grid")
                             each story, index in stories 
+                                - var imageSize = 1144
+                                - var loading = "eager"
+                                if index > 2 
+                                    - imageSize = 730
+                                    - loading = "lazy"
+
                                 div(class="stories-desktop-item" )
                                     article
                                         div(class="story-grid" role="link" data-href="/"+story.uri)
                                             if story.image
                                                 div(class="story-image")
-                                                    img(alt=story.title src="/v1/resize:fit:1358/format:webp/"+story.image loading="eager")
+                                                    img(alt=story.title src="/v1/resize:fit:"+imageSize+"/format:webp/"+story.image loading=loading)
                                             div(class="story-content")
                                                 div(class="story-content-wrap")
                                                     div(class="story-content-info")
