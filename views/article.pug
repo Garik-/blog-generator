@@ -52,7 +52,7 @@ block meta
     meta(property="profile:username" content=meta.author.username)
     if article.tags 
         each tag in article.tags 
-            meta(property="article:tag" content=tag)
+            meta(property="article:tag" content=tag.name)
 
 
 

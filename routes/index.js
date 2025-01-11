@@ -13,14 +13,18 @@ function formatDate(dateMs) {
   );
 }
 
+function createTag(tag, selectedTag = '') {
+  return {
+    link: `/tag/${tag}`,
+    name: tag.charAt(0).toUpperCase() + tag.slice(1),
+    isSelected: tag === selectedTag,
+  };
+}
+
 function createTags(tags, selectedTag = '') {
   return Object.keys(tags)
     .sort((a, b) => tags[b].length - tags[a].length)
-    .map((tag) => ({
-      link: `/tag/${tag}`,
-      name: tag.charAt(0).toUpperCase() + tag.slice(1),
-      isSelected: tag === selectedTag,
-    }));
+    .map((tag) => createTag(tag, selectedTag));
 }
 
 /* GET home page. */
@@ -170,6 +174,8 @@ router.get('/:article', async function (req, res) {
 
   article.date = formatDate(article.birthtimeMs);
   article.content = await replaceImages(article.content);
+
+  article.tags = article.tags.map(createTag);
 
   const meta = Object.assign({}, data.siteMetadata, {
     title: data.siteMetadata.title,
