@@ -1,89 +1,24 @@
 import express from 'express';
-import { format, formatISO } from 'date-fns';
 import getData from '../data.js';
-import { getImageDimensions, addImageURL } from './api.js';
+import { getArticleContent } from './article/article.js';
+import { getIndexContent } from './index/index.js';
+import { getTagContent } from './tag/tag.js';
 
 const router = express.Router();
 
-function formatDate(dateMs) {
-  const date = new Date(dateMs);
-  return format(
-    date,
-    date.getFullYear() === new Date().getFullYear() ? 'MMM d' : 'MMM d, yyyy'
-  );
-}
-
-function createTag(tag, selectedTag = '') {
-  return {
-    link: `/tag/${tag}`,
-    name: tag.charAt(0).toUpperCase() + tag.slice(1),
-    isSelected: tag === selectedTag,
-  };
-}
-
-function createTags(tags, selectedTag = '') {
-  return Object.keys(tags)
-    .sort((a, b) => tags[b].length - tags[a].length)
-    .map((tag) => createTag(tag, selectedTag));
-}
-
 /* GET home page. */
 router.get('/', function (req, res) {
-  const data = getData();
-
-  const meta = Object.assign({}, data.siteMetadata, {
-    title: data.siteMetadata.title,
-    description: data.siteMetadata.description,
-  });
-
-  // Сортировка страниц по mtimeMs в порядке убывания
-  const sortedPages = Object.values(data.pages).sort(
-    (a, b) => b.mtimeMs - a.mtimeMs
-  );
-
-  const items = sortedPages.map((page) => {
-    return {
-      title: page.title,
-      uri: page.uri,
-      description: page.description,
-      tags: page.tags,
-      date: formatDate(page.birthtimeMs),
-      image: page.image,
-    };
-  });
-
-  const tags = createTags(data.tags);
-
-  res.render('index', { meta, items, tags });
+  const content = getIndexContent();
+  res.render('index', content);
 });
 
 router.get('/tag/:tag', function (req, res) {
-  const data = getData();
-
-  if (!data.tags[req.params.tag]) {
-    res.status(404).send('Tag not found');
-    return;
+  try {
+    const content = getTagContent(req.params);
+    res.render('tag', content);
+  } catch (err) {
+    res.status(404).send(err.message);
   }
-
-  const pages = data.tags[req.params.tag].map((id) => {
-    const page = data.pages[id];
-    return {
-      title: page.title,
-      uri: page.uri,
-      description: page.description,
-      tags: page.tags,
-      date: formatDate(page.birthtimeMs),
-      image: page.image,
-    };
-  });
-
-  const meta = Object.assign({}, data.siteMetadata, {
-    title: req.params.tag,
-  });
-
-  const tags = createTags(data.tags, req.params.tag);
-
-  res.render('tag', { meta, tags, pages });
 });
 
 router.get('/site.webmanifest', function (req, res) {
@@ -109,82 +44,13 @@ router.get('/site.webmanifest', function (req, res) {
   });
 });
 
-function createImageURL(file, size, format) {
-  const formattedPath = format ? `format:${format}/` : '';
-  const imageURL = `/v1/resize:fit:${size}/${formattedPath}${file}`;
-
-  addImageURL(imageURL);
-  return imageURL;
-}
-
-export function createSrcset(
-  file,
-  format = '',
-  sizes = [640, 720, 750, 768, 828, 1100, 1400]
-) {
-  return sizes
-    .map((size) => {
-      return createImageURL(file, size, format) + ` ${size}w`;
-      // const formattedPath = format ? `format:${format}/` : '';
-      // return `/v1/resize:fit:${size}/${formattedPath}${file} ${size}w`;
-    })
-    .join(', ');
-}
-
-async function replaceImages(context) {
-  const regex = /<\p>!\[\[([^\]]+)\]\]\n?(.*?)<\/p>/gm;
-  const match = context.matchAll(regex);
-  const sizes =
-    '(min-resolution: 4dppx) and (max-width: 700px) 50vw, (-webkit-min-device-pixel-ratio: 4) and (max-width: 700px) 50vw, (min-resolution: 3dppx) and (max-width: 700px) 67vw, (-webkit-min-device-pixel-ratio: 3) and (max-width: 700px) 65vw, (min-resolution: 2.5dppx) and (max-width: 700px) 80vw, (-webkit-min-device-pixel-ratio: 2.5) and (max-width: 700px) 80vw, (min-resolution: 2dppx) and (max-width: 700px) 100vw, (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px) 100vw, 700px';
-
-  for (const m of match) {
-    const [src, file, caption] = m;
-
-    const dimensions = await getImageDimensions(file, 1400);
-
-    const figure = `
-<figure>
-  <picture>
-      <source srcset="${createSrcset(file, 'webp')}" sizes="${sizes}" type="image/webp">
-      <source srcset="${createSrcset(file)}" sizes="${sizes}">
-      <img alt="" width="${dimensions.width}" height="${dimensions.height}" loading="lazy" role="presentation" src="/v1/resize:fit:1400/${file}">
-  </picture>
-  ${caption ? `<figcaption>${caption}</figcaption>` : ''}
-</figure>
-`;
-
-    addImageURL(`/v1/resize:fit:1400/${file}`);
-
-    context = context.replace(src, figure);
-  }
-  return context;
-}
-
 router.get('/:article', async function (req, res) {
-  const data = getData();
-
-  if (!data.URIMap[req.params.article]) {
-    res.status(404).send('Article not found');
-
-    return;
+  try {
+    const content = await getArticleContent(req.params);
+    res.render('article', content);
+  } catch (err) {
+    res.status(404).send(err.message);
   }
-
-  const id = data.URIMap[req.params.article];
-  const article = data.pages[id];
-
-  article.date = formatDate(article.birthtimeMs);
-  article.content = await replaceImages(article.content);
-
-  article.tags = article.tags.map(createTag);
-
-  const meta = Object.assign({}, data.siteMetadata, {
-    title: data.siteMetadata.title,
-    description: data.siteMetadata.description,
-    published_time: formatISO(new Date(article.birthtimeMs)),
-    modified_time: formatISO(new Date(article.mtimeMs)),
-  });
-
-  res.render('article', { meta, article });
 });
 
 export default router;

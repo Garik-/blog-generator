@@ -1,4 +1,4 @@
-import { createSrcset } from './index.js';
+import { createSrcset } from './article.js';
 
 describe('createSrcset', () => {
   it('should generate srcset with default sizes and no format', () => {

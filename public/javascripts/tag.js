@@ -1,8 +1,5 @@
 
 ; (function () {
-
-
-
     function isObject(value) {
         var type = typeof value;
         return value != null && (type == 'object' || type == 'function');
@@ -140,13 +137,7 @@
 
         const arrowPrev = document.getElementsByClassName('topics-carousel-left')[0];
         const arronNext = document.getElementsByClassName('topics-carousel-right')[0];
-
-        console.log(container, arrowPrev, arronNext);
-
-
         const scrollPixels = 100;
-
-
 
         container.removeChild(arronNext);
         container.removeChild(arrowPrev);
@@ -181,7 +172,6 @@
         const scrollNext = () => scrollBy(scrollPixels);
         const scrollPrev = () => scrollBy(-scrollPixels);
 
-
         // Update arrow visibility
         const updateArrowVisibility = () => {
             const scrollableWidth = container.scrollWidth - container.clientWidth;
@@ -207,8 +197,6 @@
             }
         }
 
-
-
         const handleResize = debounce(updateArrowVisibility, 100);
         window.addEventListener('resize', handleResize);
         container.addEventListener('scroll', updateArrowVisibility);
@@ -222,8 +210,6 @@
             childrenWidth += parseInt(container.children[i].offsetWidth, 10);
         }
         setShowNextArrow(childrenWidth > container.clientWidth);
-
-
     }
 
     document.addEventListener('DOMContentLoaded', () => {
