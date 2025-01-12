@@ -21,4 +21,5 @@ export default [
       'sonarjs/todo-tag': 'warn',
     },
   },
+  { ignores: ['public/javascripts/counter.js', 'dist/', 'node_modules/'] },
 ];
