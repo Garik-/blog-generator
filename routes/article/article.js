@@ -32,6 +32,18 @@ function replaceHr(context) {
   );
 }
 
+function replaceHighlights(context) {
+  const regex = /==(.*?)==/gm;
+  const matches = context.match(regex);
+  if (matches) {
+    matches.forEach((match) => {
+      const highlightedText = match.slice(2, -2); // Remove the '==' from both ends
+      context = context.replace(match, `<mark>${highlightedText}</mark>`);
+    });
+  }
+  return context;
+}
+
 async function replaceImages(context) {
   const regex = /<\p>!\[\[([^\]]+)\]\]\n?(.*?)<\/p>/gm;
   const match = context.matchAll(regex);
@@ -74,6 +86,7 @@ export async function getArticleContent(params) {
   article.date = formatDate(article.birthtimeMs);
   article.content = await replaceImages(article.content);
   article.content = replaceHr(article.content);
+  article.content = replaceHighlights(article.content);
 
   if (article['tags'] && article.tags.length > 0) {
     article.tags = article.tags.map(createTag);
