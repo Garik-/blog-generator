@@ -76,7 +76,7 @@ function downloadImagesList(targetUrl, destDir) {
       });
     })
     .on('error', (err) => {
-      exitOnError(err.message);
+      exitOnError(err);
     });
 }
 

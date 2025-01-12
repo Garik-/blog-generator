@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start:site": "nodemon --ext js,mjs,cjs,json,md ./bin/www 3000",
+    "start:site": "nodemon --ignore dist/ --ext js,mjs,cjs,json,md ./bin/www 3000",
     "start": "run-p start:site sass:debug postcss:debug",
     "build:css": "run-s sass postcss",
     "build": "run-s build:css start:site",

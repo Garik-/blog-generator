@@ -1,13 +1,14 @@
 import getData from '../../data.js';
 import { formatDate, formatISO } from '../format.js';
 import { createTag } from '../tags.js';
-import { getImageDimensions, addImageURL } from '../api.js'; // TODO: циклическая зависимость надо вытащить их
+import { getImageDimensions } from '../api.js'; // TODO: циклическая зависимость надо вытащить их
+import { addImage } from '../../images.js';
 
 function createImageURL(file, size, format) {
   const formattedPath = format ? `format:${format}/` : '';
   const imageURL = `/v1/resize:fit:${size}/${formattedPath}${file}`;
 
-  addImageURL(imageURL);
+  addImage(imageURL);
   return imageURL;
 }
 
@@ -45,7 +46,7 @@ async function replaceImages(context) {
   </figure>
   `;
 
-    addImageURL(`/v1/resize:fit:1400/${file}`);
+    addImage(`/v1/resize:fit:1400/${file}`);
 
     context = context.replace(src, figure);
   }
