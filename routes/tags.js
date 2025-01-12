@@ -1,9 +1,11 @@
-import { capitalize } from './format.js';
+import { translit } from '../data.js';
 
 export function createTag(tag, selectedTag = '') {
+  const uri = translit(tag);
+
   return {
-    link: `/tag/${tag}.html`,
-    name: capitalize(tag),
+    link: `/tag/${uri}.html`,
+    name: tag,
     isSelected: tag === selectedTag,
   };
 }

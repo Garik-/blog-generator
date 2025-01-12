@@ -44,7 +44,8 @@ $ ln -s obsidian-public data
 $ ln -s obsidian-images images
 $ npm install
 $ npm start
-$ npm run download
+$ npm run publish
+
 ```
 
 ## TODO
@@ -61,3 +62,4 @@ $ npm run download
 - [ ] site web manifest
 - [x] code highlight
 - [x] reading time algorithm
+- [ ] pinned stories

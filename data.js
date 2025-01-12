@@ -35,7 +35,7 @@ const siteMetadata = {
   },
 };
 
-function translit(word) {
+export function translit(word) {
   var converter = {
     а: 'a',
     б: 'b',
@@ -167,6 +167,7 @@ async function getData() {
     pages: {},
     tags: {},
     URIMap: {},
+    tagsURIMap: {},
     siteMetadata,
   };
 
@@ -204,6 +205,8 @@ async function getData() {
 
     if (tags) {
       tags.forEach((tag) => {
+        data.tagsURIMap[translit(tag)] = tag;
+
         if (!data.tags[tag]) {
           data.tags[tag] = [];
         }
@@ -221,5 +224,9 @@ let data;
 (async () => {
   data = await getData();
 })();
+
+export function getTagByURI(uri) {
+  return data.tagsURIMap[uri] || '';
+}
 
 export default () => data;

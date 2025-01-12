@@ -7,6 +7,8 @@
     "start": "run-p start:site sass:debug postcss:debug",
     "build:css": "run-s sass postcss",
     "build": "run-s build:css start:site",
+    "prepublish": "run-s download",
+    "publish": "./bin/publish.sh",
     "download:site": "./bin/download_site.sh",
     "download:images": "node ./bin/download_images.js",
     "download:test": "npx serve ./dist",

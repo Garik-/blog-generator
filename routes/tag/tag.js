@@ -1,15 +1,16 @@
-import getData from '../../data.js';
-import { formatDate, capitalize } from '../format.js';
+import getData, { getTagByURI } from '../../data.js';
+import { formatDate } from '../format.js';
 import { createTags } from '../tags.js';
 
 export function getTagContent(params) {
   const data = getData();
+  const tag = getTagByURI(params.tag);
 
-  if (!data.tags[params.tag]) {
+  if (!tag || !data.tags[tag]) {
     throw new Error('Tag not found');
   }
 
-  const stories = data.tags[params.tag].map((id) => {
+  const stories = data.tags[tag].map((id) => {
     const page = data.pages[id];
     return {
       title: page.title,
@@ -24,12 +25,12 @@ export function getTagContent(params) {
   const meta = Object.assign({}, data.siteMetadata, {
     title:
       'The most insightful stories about ' +
-      capitalize(params.tag) +
+      tag +
       '  by ' +
       data.siteMetadata.author.name,
   });
 
-  const tags = createTags(data.tags, params.tag);
+  const tags = createTags(data.tags, tag);
 
-  return { meta, tags, stories, tag: capitalize(params.tag) };
+  return { meta, tags, stories, tag };
 }
