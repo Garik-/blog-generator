@@ -29,7 +29,7 @@ const siteMetadata = {
     username: 'garikdjan',
   },
   description: `My thoughts notes and publications are collected here`,
-  siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+  siteUrl: `https://gariktalksabout.tech/`,
   social: {
     twitter: `kylemathews`,
   },
