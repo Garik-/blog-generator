@@ -189,6 +189,22 @@
     }
   }
 
+  table {
+    font-weight: 400;
+    color: #242424;
+    font-style: normal;
+    line-height: 1.58;
+    letter-spacing: -0.004em;
+    font-family: variables.$font-family-article;
+    margin-bottom: -0.46em;
+    margin-top: 1.14em;
+    width: 100%;
+
+    thead th {
+      text-align: left;
+    }
+  }
+
   p {
     font-weight: 400;
     color: #242424;
@@ -199,6 +215,17 @@
     font-family: variables.$font-family-article;
     margin-bottom: -0.46em;
 
+    > code {
+      font-weight: 400;
+      background-color: #f2f2f2;
+      font-family: variables.$font-family-code;
+      padding: 2px 4px;
+      font-size: 75%;
+    }
+  }
+
+  li,
+  p {
     > code {
       font-weight: 400;
       background-color: #f2f2f2;
@@ -263,7 +290,8 @@
 
   @include respond.large {
     p,
-    li {
+    li,
+    table {
       font-size: 20px;
       margin-top: 2.14em;
       line-height: 32px;
@@ -330,7 +358,8 @@
 
   @include respond.medium {
     p,
-    li {
+    li,
+    table {
       font-size: 20px;
       margin-top: 2.14em;
       line-height: 32px;
@@ -401,7 +430,8 @@
     }
 
     p,
-    li {
+    li,
+    table {
       font-size: 20px;
       margin-top: 2.14em;
       line-height: 32px;
@@ -476,7 +506,8 @@
     }
 
     p,
-    li {
+    li,
+    table {
       font-size: 18px;
       margin-top: 1.56em;
       line-height: 28px;
