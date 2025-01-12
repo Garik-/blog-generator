@@ -24,6 +24,14 @@ export function createSrcset(
     .join(', ');
 }
 
+function replaceHr(context) {
+  const regex = /<hr>/gm;
+  return context.replace(
+    regex,
+    '<div class="separator"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>'
+  );
+}
+
 async function replaceImages(context) {
   const regex = /<\p>!\[\[([^\]]+)\]\]\n?(.*?)<\/p>/gm;
   const match = context.matchAll(regex);
@@ -61,14 +69,14 @@ export async function getArticleContent(params) {
   }
 
   const id = data.URIMap[params.article];
-  const article = data.pages[id];
+  const article = { ...data.pages[id] }; // copy object
 
   article.date = formatDate(article.birthtimeMs);
   article.content = await replaceImages(article.content);
+  article.content = replaceHr(article.content);
 
-  let tags = [];
   if (article['tags'] && article.tags.length > 0) {
-    tags = article.tags.map(createTag);
+    article.tags = article.tags.map(createTag);
   }
 
   const meta = Object.assign({}, data.siteMetadata, {
@@ -78,5 +86,5 @@ export async function getArticleContent(params) {
     modified_time: formatISO(new Date(article.mtimeMs)),
   });
 
-  return { meta, article: { ...article, tags } };
+  return { meta, article };
 }

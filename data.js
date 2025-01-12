@@ -121,7 +121,11 @@ function extractDescription(str) {
   const lines = str.split('\n');
   for (const line of lines) {
     const trimmedLine = line.trim();
-    if (trimmedLine && !trimmedLine.startsWith('![[')) {
+    if (
+      trimmedLine &&
+      !trimmedLine.startsWith('![[') &&
+      !trimmedLine.startsWith('#')
+    ) {
       return trimmedLine;
     }
   }
