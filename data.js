@@ -22,16 +22,20 @@ const DESCRIPTION_MAX_LENGTH = 150;
 const siteMetadata = {
   title: 'Igor Riakhovskii',
   author: {
-    name: `Igor Riakhovskii`,
-    summary: `In commercial development since 2005. At the moment, I am engaged in product development of cloud systems in the role of Technical Lead`,
+    name: 'Igor Riakhovskii',
+    summary:
+      'In commercial development since 2005. At the moment, I am engaged in product development of cloud systems in the role of Technical Lead',
     firstName: 'Igor',
     lastName: 'Riakhovskii',
     username: 'garikdjan',
   },
-  description: `My thoughts notes and publications are collected here`,
-  siteUrl: `https://gariktalksabout.tech/`,
+  description: 'My thoughts notes and publications are collected here',
+  siteUrl: 'https://gariktalksabout.tech/',
   social: {
-    twitter: `kylemathews`,
+    telegram: 'https://telegram.me/garikdjan',
+    github: 'https://github.com/Garik-',
+    habr: 'https://habr.com/ru/users/Gariks/',
+    linkedin: 'https://www.linkedin.com/in/igor-riakhovskii-459b96196/',
   },
 };
 

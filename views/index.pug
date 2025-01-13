@@ -7,15 +7,64 @@ block content
   div(class="page")
     div(class="main-layout")
       main
+        section(class="mobile-profile")
+          div(class="mobile-profile-container")
+            div(class="mobile-profile-wrap")
+              div(class="mobile-profile-content")
+                div(class="mobile-profile-info")
+                  div(class="profile-info")
+                    div(class="profile-info-image")
+                      div(class="profile-info-image-wrap")
+                        img(alt=meta.author.name  src="/v1/resize:fill:124:124/public/avatar.jpg" width="62" height="62" loading="lazy")
+                        div(class="profile-info-image-shadow")
+                    div(class="profile-info-name")=meta.author.name
+                div(class="mobile-profile-buttons")
+                  div
+                    a(href=meta.social.telegram rel="noopener noreferrer" target="_blank")
+                      img(src="/images/social/telegram.svg" width="36" height="36")
+                  div 
+                    a(href=meta.social.github rel="noopener noreferrer" target="_blank")
+                      img(src="/images/social/github.svg" width="36" height="36")
+                  div 
+                    a(href=meta.social.habr rel="noopener noreferrer" target="_blank")
+                      img(src="/images/social/habr.svg" width="36" height="36")
+                  div 
+                    a(href=meta.social.linkedin rel="noopener noreferrer" target="_blank")
+                      img(src="/images/social/linkedin.png" width="100%" height="36")
+
         +article-list(items)
 
       aside
         div(class="sticky")
-          section(class="profile aside-first")
-            // p тут нужна икнока имя описание и сыслки на хабр карьеру линкедин гитхаб и телегу
-          section
-            h2(class="aside-title  aside-first") Recommended topics
+          section(class="aside-profile")
+            div(class="aside-profile-image")
+              img(alt=meta.author.name src="/v1/resize:fill:176:176/public/avatar.jpg" width="88" height="88" loading="lazy")
+              div(class="aside-profile-image__shadow")
+            div(class="aside-profile-name")
+              h2 
+                span #{meta.author.name}
+            div(class="aside-profile-summary")
+              p 
+                span #{meta.author.summary}
+            div(class="aside-profile-buttons")
+              div
+                a(href=meta.social.telegram rel="noopener noreferrer" target="_blank")
+                  img(src="/images/social/telegram.svg" width="38" height="38")
+              div 
+                a(href=meta.social.github rel="noopener noreferrer" target="_blank")
+                  img(src="/images/social/github.svg" width="38" height="38")
+              div 
+                a(href=meta.social.habr rel="noopener noreferrer" target="_blank")
+                  img(src="/images/social/habr.svg" width="38" height="38")
+              div 
+                a(href=meta.social.linkedin rel="noopener noreferrer" target="_blank")
+                  img(src="/images/social/linkedin.png" width="100%" height="38")
+    
+          div(class="aside-separator")
+          section(class="aside-topics")
+            h2(class="aside-title") Recommended topics
             +topics(tags)
+          div(class="aside-separator")
            
     
 

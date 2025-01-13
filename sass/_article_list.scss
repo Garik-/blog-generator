@@ -4,9 +4,21 @@
 .article-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+
+  margin-top: 8px;
+
+  @include respond.medium {
+    margin-top: 40px;
+  }
+
+  @include respond.large {
+    margin-top: 40px;
+  }
 }
 
 .article-item {
+  width: 100%;
   max-height: 450px;
   transition:
     opacity 300ms 300ms,
@@ -22,6 +34,10 @@
     min-width: 0;
     width: 100%;
     box-sizing: border-box;
+
+    @include respond.small {
+      max-width: 680px;
+    }
 
     @include respond.medium {
       max-width: 680px;

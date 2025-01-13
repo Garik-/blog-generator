@@ -10,9 +10,9 @@ export function getIndexContent() {
     description: data.siteMetadata.description,
   });
 
-  // Сортировка страниц по mtimeMs в порядке убывания
+  // Сортировка страниц по birthtimeMs в порядке убывания
   const sortedPages = Object.values(data.pages).sort(
-    (a, b) => b.mtimeMs - a.mtimeMs
+    (a, b) => b.birthtimeMs - a.birthtimeMs
   );
 
   const items = sortedPages.map((page) => {
