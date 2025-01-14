@@ -2,6 +2,11 @@ extends layout
 
 include ./includes/tags.pug
 
+block header
+    header(class="header-panel")
+        div(class="header-panel-wrap")
+            a(class="header-panel-logo" href="/" rel="noopener follow") IR
+
 block content
     main(class="article-layout")
         div(class="container")
@@ -53,6 +58,7 @@ block meta
     if article.tags 
         each tag in article.tags 
             meta(property="article:tag" content=tag.name)
+    script(src="/javascripts/header.js" defer)
 
 
 

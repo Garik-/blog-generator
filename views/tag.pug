@@ -1,8 +1,14 @@
 extends layout
 
 block meta
-    script(src="/javascripts/tag.js")
+    script(src="/javascripts/header.js" defer)
+    script(src="/javascripts/tag.js" defer)
     title=meta.title
+
+block header
+    header(class="header-panel")
+        div(class="header-panel-wrap")
+            a(class="header-panel-logo" href="/" rel="noopener follow") IR
 
 block content
     div(class="tag-layout")
@@ -35,14 +41,14 @@ block content
                             each story in stories 
                                 div(class="stories-mobile-item")
                                     article
-                                        div(class="story-grid" role="link" data-href="/"+story.uri)
+                                        a(class="story-grid" href="/"+story.uri rel="noopener follow") 
                                             if story.image
                                                 div(class="story-image")
                                                     img(alt=story.title src="/v1/resize:fit:1358/format:webp/"+story.image loading="eager")
                                             div(class="story-content")
                                                 div(class="story-content-wrap")
                                                     div(class="story-content-info")
-                                                        a(href="/"+story.uri rel="noopener follow")
+                                                        div
                                                             div(class="story-content-info-title") 
                                                                 h2 #{story.title}
                                                             div(class="story-content-info-description")
@@ -64,14 +70,14 @@ block content
 
                                 div(class="stories-desktop-item" )
                                     article
-                                        div(class="story-grid" role="link" data-href="/"+story.uri)
+                                        a(class="story-grid" href="/"+story.uri rel="noopener follow")
                                             if story.image
                                                 div(class="story-image")
                                                     img(alt=story.title src="/v1/resize:fit:"+imageSize+"/format:webp/"+story.image loading=loading)
                                             div(class="story-content")
                                                 div(class="story-content-wrap")
                                                     div(class="story-content-info")
-                                                        a(href="/"+story.uri rel="noopener follow")
+                                                        div
                                                             div(class="story-content-info-title") 
                                                                 h2 #{story.title}
                                                             div(class="story-content-info-description")

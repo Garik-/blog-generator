@@ -26,7 +26,7 @@ export function getIndexContent() {
     };
   });
 
-  const tags = createTags(data.tags);
+  const tags = createTags(data.tags).slice(0, 7);
 
   return { meta, items, tags };
 }
