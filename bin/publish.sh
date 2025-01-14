@@ -13,6 +13,7 @@ function exit_on_error {
 
 git clone -b $TARGET_BRANCH $REPO_URL $TEMP_DIR
 cd $TEMP_DIR
+git rm -r --cached .
 rm -rf *
 cp -r "$DIST_DIR/." . 
 git add .
