@@ -3,6 +3,7 @@ import { formatDate, formatISO } from '../format.js';
 import { createTag } from '../tags.js';
 import { getImageDimensions } from '../api.js'; // TODO: циклическая зависимость надо вытащить их
 import { addImage } from '../../images.js';
+import { getStyles } from '../styles.js';
 
 function createImageURL(file, size, format) {
   const formattedPath = format ? `format:${format}/` : '';
@@ -99,5 +100,5 @@ export async function getArticleContent(params) {
     modified_time: formatISO(new Date(article.mtimeMs)),
   });
 
-  return { meta, article };
+  return { meta, article, styles: getStyles() };
 }

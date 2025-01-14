@@ -1,6 +1,7 @@
 import { createTags } from '../tags.js';
 import { formatDate } from '../format.js';
 import getData from '../../data.js';
+import { getStyles } from '../styles.js';
 
 export function getIndexContent() {
   const data = getData();
@@ -15,6 +16,8 @@ export function getIndexContent() {
     (a, b) => b.birthtimeMs - a.birthtimeMs
   );
 
+  const styles = getStyles();
+
   const items = sortedPages.map((page) => {
     return {
       title: page.title,
@@ -28,5 +31,5 @@ export function getIndexContent() {
 
   const tags = createTags(data.tags).slice(0, 7);
 
-  return { meta, items, tags };
+  return { meta, items, tags, styles };
 }

@@ -5,6 +5,7 @@ import postcssCombineMediaQuery from 'postcss-combine-media-query';
 import postcss from 'postcss';
 
 import CleanCss from 'clean-css';
+import postcssHash from 'postcss-hash';
 
 const clean = (opts = {}) => {
   const cleancss = new CleanCss(opts);
@@ -33,5 +34,11 @@ const pluginClean = clean();
 
 /** @type {import('postcss-load-config').Config} */
 export default {
-  plugins: [postcssCombineMediaQuery, autoprefixer, postcssNested, pluginClean],
+  plugins: [
+    postcssCombineMediaQuery,
+    autoprefixer,
+    postcssNested,
+    pluginClean,
+    postcssHash,
+  ],
 };

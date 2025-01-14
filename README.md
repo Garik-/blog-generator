@@ -63,3 +63,4 @@ $ npm run publish
 - [x] code highlight
 - [x] reading time algorithm
 - [ ] pinned stories
+- [x] styled cache problem

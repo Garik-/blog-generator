@@ -1,6 +1,7 @@
 import getData, { getTagByURI } from '../../data.js';
 import { formatDate } from '../format.js';
 import { createTags } from '../tags.js';
+import { getStyles } from '../styles.js';
 
 export function getTagContent(params) {
   const data = getData();
@@ -32,5 +33,5 @@ export function getTagContent(params) {
 
   const tags = createTags(data.tags, tag);
 
-  return { meta, tags, stories, tag };
+  return { meta, tags, stories, tag, styles: getStyles() };
 }
