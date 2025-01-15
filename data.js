@@ -12,6 +12,7 @@ import { unified } from 'unified';
 import rehypeHighlight from 'rehype-highlight';
 import readingTime from 'reading-time';
 import strip from 'strip-markdown';
+import rehypeExternalLinks from 'rehype-external-links';
 import { remark } from 'remark';
 
 // Получение __dirname в ES6 модулях
@@ -144,6 +145,10 @@ const markdown = unified()
   // .use(remarkPrism)
   .use(remarkRehype)
   .use(rehypeSanitize)
+  .use(rehypeExternalLinks, {
+    rel: ['noopener', 'ugc', 'nofollow'],
+    target: '_blank',
+  })
   .use(rehypeHighlight)
   .use(rehypeStringify);
 

@@ -74,6 +74,7 @@
     "postcss-combine-media-query": "^1.0.1",
     "postcss-hash": "^3.0.0",
     "prettier": "^3.4.2",
+    "rehype-external-links": "^3.0.0",
     "remark": "^15.0.1",
     "sass": "^1.83.0",
     "strip-markdown": "^6.0.0"
