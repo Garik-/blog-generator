@@ -11,6 +11,8 @@ import remarkGfm from 'remark-gfm';
 import { unified } from 'unified';
 import rehypeHighlight from 'rehype-highlight';
 import readingTime from 'reading-time';
+import strip from 'strip-markdown';
+import { remark } from 'remark';
 
 // Получение __dirname в ES6 модулях
 const __filename = fileURLToPath(import.meta.url);
@@ -136,6 +138,17 @@ function extractDescription(str) {
   return str;
 }
 
+const markdown = unified()
+  .use(remarkParse)
+  .use(remarkGfm)
+  // .use(remarkPrism)
+  .use(remarkRehype)
+  .use(rehypeSanitize)
+  .use(rehypeHighlight)
+  .use(rehypeStringify);
+
+const markdownStrip = remark().use(strip);
+
 async function parseFileContent(filePath) {
   const data = await fs.readFile(filePath, { encoding: 'utf8' });
   const attributesRegex = /---\n([\s\S]*?)\n---/m;
@@ -149,26 +162,19 @@ async function parseFileContent(filePath) {
     parsedAttributes = yaml.load(attributes[1]);
   }
 
-  const description = extractDescription(content);
+  let description = extractDescription(content);
+  description = await markdownStrip.process(description); //remove markdown formatting
+  description = truncateDescription(String(description));
+
   const image = extractFileFromTemplate(content);
 
   return {
     ...parsedAttributes,
     content,
-    description: truncateDescription(description),
+    description,
     image,
   };
 }
-
-const remark = unified()
-  .use(remarkParse)
-  .use(remarkGfm)
-  // .use(remarkPrism)
-  .use(remarkRehype)
-  .use(rehypeSanitize)
-  .use(rehypeHighlight)
-
-  .use(rehypeStringify);
 
 async function getData() {
   const data = {
@@ -195,7 +201,7 @@ async function getData() {
     const { tags, content, description, image } =
       await parseFileContent(filePath);
     const readingStats = readingTime(content);
-    const html = await remark.process(content);
+    const html = await markdown.process(content);
 
     data.pages[stats.ino] = {
       atimeMs: stats.atimeMs, // время последнего доступа к файлу в миллисекундах
