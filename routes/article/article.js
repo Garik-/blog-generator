@@ -68,6 +68,7 @@ async function replaceImages(context) {
   `;
 
     addImage(`/v1/resize:fit:1400/${file}`);
+    addImage(`/v1/resize:fit:1200/${file}`); // og image
 
     context = context.replace(src, figure);
   }
@@ -100,5 +101,38 @@ export async function getArticleContent(params) {
     modified_time: formatISO(new Date(article.mtimeMs)),
   });
 
-  return { meta, article, styles: getStyles() };
+  const og = {
+    title: article.title,
+    description: article.description,
+    url: meta.siteUrl + article.uri,
+    site_name: meta.title,
+    type: 'article',
+  };
+
+  const ld = {
+    '@context': 'http://schema.org', //eslint-disable-line
+    '@type': 'NewsArticle',
+    url: og.url,
+    dateCreated: meta.published_time,
+    datePublished: meta.published_time,
+    dateModified: meta.modified_time,
+    headline: og.title,
+    name: og.title,
+    description: og.description,
+    identifier: id,
+    author: {
+      '@type': 'Person',
+      name: meta.author.name,
+      url: meta.siteUrl,
+    },
+    creator: [meta.author.name],
+    mainEntityOfPage: og.url,
+  };
+
+  if (article.image) {
+    og.image = meta.siteUrl + 'v1/resize:fit:1200/' + article.image;
+    ld.image = [meta.siteUrl + 'v1/resize:fit:1200/' + article.image];
+  }
+
+  return { meta, og, ld: JSON.stringify(ld), article, styles: getStyles() };
 }

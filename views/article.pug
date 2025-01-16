@@ -46,10 +46,12 @@ block content
 
 block meta
     title #{ article.title} | by #{meta.title}
+    meta(name='title' content=article.title +' | by '+ meta.title)
     meta(name='description' content=article.description)
-    meta(property="og:title" content=article.title)
-    meta(property="og:description" content=article.description)
-    meta(property="og:type" content="article")
+
+    each content, property in og 
+        meta(property="og:"+property content=content)
+
     meta(property="article:published_time" content=meta.published_time)
     meta(property="article:modified_time" content=meta.modified_time)
     meta(property="profile:first_name" content=meta.author.firstName)
@@ -58,6 +60,12 @@ block meta
     if article.tags 
         each tag in article.tags 
             meta(property="article:tag" content=tag.name)
+
+    link(rel="author" href=meta.siteUrl)
+    link(rel="canonical" href=meta.siteUrl + article.uri)
+
+    script(type="application/ld+json")!=ld
+    
     script(src="/javascripts/header.js" defer)
 
 

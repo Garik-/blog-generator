@@ -71,10 +71,15 @@ block content
 
 block meta
   title #{meta.title}
-  meta(name='description' content=meta.description)
+  meta(name='title' content=meta.title)
   meta(property="og:title" content=meta.title)
+
+  meta(name='description' content=meta.description)
   meta(property="og:description" content=meta.description)
+
   meta(property="og:type" content="website")
+  meta(property="og:site_name" content=meta.title)
+  
   meta(property="profile:first_name" content=meta.author.firstName)
   meta(property="profile:last_name" content=meta.author.lastName)
   meta(property="profile:username" content=meta.author.username)
