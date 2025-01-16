@@ -68,7 +68,6 @@ async function replaceImages(context) {
   `;
 
     addImage(`/v1/resize:fit:1400/${file}`);
-    addImage(`/v1/resize:fit:1200/${file}`); // og image
 
     context = context.replace(src, figure);
   }
@@ -132,6 +131,8 @@ export async function getArticleContent(params) {
   if (article.image) {
     og.image = meta.siteUrl + 'v1/resize:fit:1200/' + article.image;
     ld.image = [meta.siteUrl + 'v1/resize:fit:1200/' + article.image];
+
+    addImage('/v1/resize:fit:1200/' + article.image);
   }
 
   return { meta, og, ld: JSON.stringify(ld), article, styles: getStyles() };
