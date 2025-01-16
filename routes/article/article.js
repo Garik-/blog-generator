@@ -132,6 +132,10 @@ export async function getArticleContent(params) {
     og.image = meta.siteUrl + 'v1/resize:fit:1200/' + article.image;
     ld.image = [meta.siteUrl + 'v1/resize:fit:1200/' + article.image];
 
+    const { width, height } = await getImageDimensions(article.image, 1200);
+    og['image:width'] = width;
+    og['image:height'] = height;
+
     addImage('/v1/resize:fit:1200/' + article.image);
   }
 
