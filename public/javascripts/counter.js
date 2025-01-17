@@ -12,4 +12,22 @@ if (document.location.hostname !== 'localhost') {
           trackLinks: true,
           accurateTrackBounce: true
      });
+
+     (function (src, id) {
+          for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === src) { return; } }
+          const script = document.createElement("script");
+          script.async = 1;
+          script.src = src + '?id=' + id;
+          script.onload = () => {
+               console.log('sdf');
+               window.dataLayer = window.dataLayer || [];
+               function gtag() { dataLayer.push(arguments); }
+               gtag('js', new Date());
+               gtag('config', id);
+          }
+
+          const someScript = document.getElementsByTagName("script")[0];
+          someScript.parentNode.insertBefore(script, someScript);
+
+     })('https://www.googletagmanager.com/gtag/js', 'G-9ZFMKML10Y');
 }
