@@ -3,11 +3,15 @@ import getData, { removeFileExtension } from '../data.js';
 import { getArticleContent } from './article/article.js';
 import { getIndexContent } from './index/index.js';
 import { getTagContent } from './tag/tag.js';
+import { formatISO } from './format.js';
+import { addImage } from '../images.js';
 
 const router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res) {
+  addImage('/sitemap.xml');
+
   const content = getIndexContent();
   res.render('index', content);
 });
@@ -44,6 +48,43 @@ router.get('/site.webmanifest', function (req, res) {
     background_color: '#ffffff',
     display: 'standalone',
   });
+});
+
+router.get('/sitemap.xml', async function (req, res) {
+  const data = await getData();
+
+  const url = (loc, lastmod, priority = '0.80') => {
+    res.write(`
+<url>
+  <loc>${loc}</loc>
+  <lastmod>${formatISO(new Date(lastmod))}</lastmod>
+  <priority>${priority}</priority>
+</url>`);
+  };
+
+  res.set('Content-Type', 'text/xml');
+  res.write('<?xml version="1.0" encoding="UTF-8"?>\n');
+  res.write(`<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  `);
+
+  const { siteUrl } = data.siteMetadata;
+  const now = Date.now();
+
+  url(siteUrl, now, '1.00');
+  for (const id in data.pages) {
+    const { uri, mtimeMs } = data.pages[id];
+    url(siteUrl + uri, mtimeMs, '0.80');
+  }
+
+  for (const tag in data.tagsURIMap) {
+    url(siteUrl + 'tag/' + tag + '.html', now, '0.60');
+  }
+
+  res.end('\n</urlset>');
 });
 
 router.get('/:article', async function (req, res) {
