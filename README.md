@@ -58,7 +58,9 @@ $ npm run publish
 - [x] responsive images
 - [x] compress html
 - [ ] availability
-- [ ] open graph
+- [x] open graph
+- [x] json+ld
+- [x] sitemap.xml
 - [ ] site web manifest
 - [x] code highlight
 - [x] reading time algorithm
