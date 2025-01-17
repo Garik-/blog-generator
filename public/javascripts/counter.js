@@ -19,7 +19,6 @@ if (document.location.hostname !== 'localhost') {
           script.async = 1;
           script.src = src + '?id=' + id;
           script.onload = () => {
-               console.log('sdf');
                window.dataLayer = window.dataLayer || [];
                function gtag() { dataLayer.push(arguments); }
                gtag('js', new Date());
