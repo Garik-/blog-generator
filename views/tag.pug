@@ -3,7 +3,20 @@ extends layout
 block meta
     script(src="/javascripts/header.js" defer)
     script(src="/javascripts/tag.js" defer)
+
     title=meta.title
+    meta(property="og:title" content=meta.title)
+    meta(name='description' content=meta.description)
+    meta(property="og:description" content=meta.description)
+
+    meta(property="og:type" content="website")
+    meta(property="og:site_name" content=meta.author.name)
+
+    meta(property="profile:first_name" content=meta.author.firstName)
+    meta(property="profile:last_name" content=meta.author.lastName)
+    meta(property="profile:username" content=meta.author.username)
+
+    link(rel="canonical" href=meta.canonical)
 
 block header
     header(class="header-panel")

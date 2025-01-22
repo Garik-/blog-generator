@@ -29,6 +29,7 @@ export function getTagContent(params) {
       tag +
       '  by ' +
       data.siteMetadata.author.name,
+    canonical: data.siteMetadata.siteUrl + 'tag/' + params.tag + '.html',
   });
 
   const tags = createTags(data.tags, tag);

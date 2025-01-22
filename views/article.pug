@@ -62,7 +62,10 @@ block meta
             meta(property="article:tag" content=tag.name)
 
     link(rel="author" href=meta.siteUrl)
+    link(rel="canonical" href=meta.siteUrl + article.uri)
+
     script(type="application/ld+json")!=ld
+    
     script(src="/javascripts/header.js" defer)
 
 
