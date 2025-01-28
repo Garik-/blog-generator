@@ -196,15 +196,16 @@ async function getData() {
     const stats = await fs.stat(filePath);
     const title = removeFileExtension(file);
 
-    const uri = translit(title) + '.html';
+    const { tags, content, description, image, url } =
+      await parseFileContent(filePath);
+
+    const uri = translit(url || title) + '.html';
     if (data.URIMap[uri]) {
       throw new Error(`Duplicate URI: ${uri}`);
     }
 
     data.URIMap[uri] = stats.ino;
 
-    const { tags, content, description, image } =
-      await parseFileContent(filePath);
     const readingStats = readingTime(content);
     const html = await markdown.process(content);
 
