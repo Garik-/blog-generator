@@ -12,9 +12,12 @@ export function getIndexContent() {
   });
 
   // Сортировка страниц по birthtimeMs в порядке убывания
-  const sortedPages = Object.values(data.pages).sort(
-    (a, b) => b.birthtimeMs - a.birthtimeMs
-  );
+  const sortedPages = Object.values(data.pages)
+    .sort((a, b) => b.birthtimeMs - a.birthtimeMs)
+    .sort((x, y) => {
+      // eslint-disable-next-line sonarjs/no-nested-conditional
+      return x.pinned === y.pinned ? 0 : x.pinned ? -1 : 1;
+    });
 
   const styles = getStyles();
 
@@ -26,6 +29,7 @@ export function getIndexContent() {
       tags: page.tags,
       date: formatDate(page.birthtimeMs),
       image: page.image,
+      pinned: page.pinned,
     };
   });
 

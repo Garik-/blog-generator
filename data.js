@@ -196,7 +196,7 @@ async function getData() {
     const stats = await fs.stat(filePath);
     const title = removeFileExtension(file);
 
-    const { tags, content, description, image, url } =
+    const { tags, content, description, image, url, pinned } =
       await parseFileContent(filePath);
 
     const uri = translit(url || title) + '.html';
@@ -221,6 +221,7 @@ async function getData() {
       content: String(html),
       image,
       readingStats,
+      pinned: !!pinned,
     };
 
     if (tags) {

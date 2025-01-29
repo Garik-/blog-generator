@@ -17,6 +17,29 @@
   }
 }
 
+.article-pinned {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-left: 2px;
+  gap: 10px;
+
+  &-icon {
+    flex: 0 0 auto;
+    color: #6b6b6b;
+  }
+
+  &-title {
+    white-space: pre-wrap;
+    overflow: hidden;
+    font-family: variables.$font-family;
+    font-size: 13px;
+    color: #6b6b6b;
+    line-height: 20px;
+    font-weight: 400;
+  }
+}
+
 .article-item {
   width: 100%;
   max-height: 450px;
