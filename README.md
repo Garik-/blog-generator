@@ -3,6 +3,8 @@
 I'm making a personal medium-style website for myself, which I want to publish on github pages  
 I didn't like gatsby because it generates too much garbage, so I wrote my own generator.
 
+![mem](docs/mem.jpg)
+
 ## MD file format
 
 post-title.md
