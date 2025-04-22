@@ -5,6 +5,7 @@ import yaml from 'js-yaml';
 
 import rehypeSanitize from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
+import rehypeSlug from 'rehype-slug';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import remarkGfm from 'remark-gfm';
@@ -145,6 +146,7 @@ const markdown = unified()
   // .use(remarkPrism)
   .use(remarkRehype)
   .use(rehypeSanitize)
+  .use(rehypeSlug)
   .use(rehypeExternalLinks, {
     rel: ['noopener', 'ugc', 'nofollow'],
     target: '_blank',
